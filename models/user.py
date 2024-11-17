@@ -9,4 +9,6 @@ class User(db.Model):
     l_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     account_open_date = db.Column(db.Date, nullable=False, default=date.today)
-    account_balance = db.Column(db.Float, nullable=False)
+    account_balance = db.Column(db.Decimal(precision=15, scale=2), nullable=False)
+
+
