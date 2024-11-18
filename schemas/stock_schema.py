@@ -5,4 +5,4 @@ class StockSchema(ma.Schema):
         fields = ("id", "stock_name", "ticker", "stock_price")
 
 stock_schema = StockSchema()
-stocks_shema = StockSchema(many=True)
+stocks_schema = StockSchema(many=True)

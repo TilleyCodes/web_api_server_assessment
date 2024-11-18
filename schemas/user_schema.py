@@ -5,4 +5,4 @@ class UserSchema(ma.Schema):
         fields = ("id", "f_name", "l_name", "email", "account_open_date", "account_balance")
 
 user_schema = UserSchema()
-users_shema = UserSchema(many=True)
+users_schema = UserSchema(many=True)
