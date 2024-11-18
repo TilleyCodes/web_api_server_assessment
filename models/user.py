@@ -11,4 +11,4 @@ class User(db.Model):
     account_open_date = db.Column(db.Date, nullable=False, default=date.today)
     account_balance = db.Column(db.Decimal(precision=15, scale=2), nullable=False)
 
-
+    orders = db.relationship("Order", back_populates = "user", cascade="all, delete-orphan")

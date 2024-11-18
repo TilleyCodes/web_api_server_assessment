@@ -10,5 +10,5 @@ class Order(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     net_amount = db.Column(db.Decimal(precision=15, scale=2),nullable=False)
     status = db.Column(db.String(100), nullable=False) # this has enumerate
-    # user_id = 
-    # stock_id =
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    stock_id = db.Column(db.Integer, db.ForeignKey("stocks.id"), nullable=False)
