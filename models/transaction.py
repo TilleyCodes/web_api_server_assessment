@@ -11,6 +11,6 @@ class Transaction(db.Model):
     amount = db.Column(db.Decimal(precision=15, scale=2),nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
-    # relationships
+    # relationships can have many transactions but to 1 user and order
     users = db.relationship("User", back_populates="transactions")
-    orders = db.relationship("Order", back_populates="transactions")
+    order = db.relationship("Order", back_populates="transactions")

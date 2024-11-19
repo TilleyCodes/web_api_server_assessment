@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from init import db, ma
+from controllers.cli_controller import db_commands
 
 # basic app factories
 def create_app():
@@ -13,5 +14,7 @@ def create_app():
     # parsing flask app instance through a method called init_app
     db.init_app(app)
     ma.init_app(app)
+
+    app.register_blueprint(db_commands) #register blueprint from cli_controller
 
     return app # flask app instance inside create_app function

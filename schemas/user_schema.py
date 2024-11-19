@@ -1,7 +1,7 @@
 from init import ma
 
 class UserSchema(ma.Schema):
-    class META:
+    class Meta:
         fields = ("id", "f_name", "l_name", "email", "account_open_date", "account_balance")
 
 user_schema = UserSchema()

@@ -1,7 +1,7 @@
 from init import ma
 
 class WatchlistSchema(ma.Schema):
-    class META:
+    class Meta:
         fields = ("id", "user_id", "stock_id")
 
 watchlist_schema = WatchlistSchema()
