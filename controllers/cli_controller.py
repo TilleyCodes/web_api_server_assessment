@@ -1,6 +1,8 @@
-from flask import Blueprint
-from init import db
 from datetime import date
+
+from flask import Blueprint
+
+from init import db
 from models import User 
 
 

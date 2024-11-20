@@ -1,6 +1,6 @@
-from init import db
 from datetime import date
-from models import Order, Transaction, Portfolio, Watchlist
+
+from init import db
 
 class User(db.Model):
     __tablename__ = "users"

@@ -1,4 +1,7 @@
 from init import db
+# from models import User, Stock
+from models.user import User
+from models.stock import Stock
 
 class Portfolio(db.Model):
     __tablename__ = "portfolios"

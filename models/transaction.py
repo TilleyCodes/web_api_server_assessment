@@ -1,7 +1,11 @@
-from init import db
 from datetime import date
+
+from init import db
 from enums import TransactionType
-from models import User, Order
+# from models import User, Order
+from models.user import User
+from models.order import Order
+
 
 class Transaction(db.Model):
     __tablename__ = "transactions"
@@ -13,5 +17,5 @@ class Transaction(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
     # relationships can have many transactions but to 1 user and order
-    users = db.relationship("User", back_populates="transactions")
-    order = db.relationship("Order", back_populates="transactions")
+    user = db.relationship("User", back_populates="transactions")
+    order = db.relationship("Order", back_populates="transaction")
