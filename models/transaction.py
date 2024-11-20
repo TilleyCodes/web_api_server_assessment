@@ -1,6 +1,7 @@
 from init import db
 from datetime import date
 from enums import TransactionType
+from models import User, Order
 
 class Transaction(db.Model):
     __tablename__ = "transactions"

@@ -3,6 +3,7 @@ from datetime import date
 from enums import OrderType, OrderStatus
 
 
+
 class Order(db.Model):
     __tablename__ = "orders"
 
