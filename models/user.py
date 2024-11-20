@@ -9,7 +9,7 @@ class User(db.Model):
     l_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     account_open_date = db.Column(db.Date, nullable=False, default=date.today)
-    account_balance = db.Column(db.Decimal(precision=15, scale=2), nullable=False)
+    account_balance = db.Column(db.Numeric(precision=15, scale=2), nullable=False)
     #relationship 1 user can have many 
     orders = db.relationship("Order", back_populates = "user", cascade="all, delete-orphan") 
     transactions = db.relationship("Transaction", back_populates = "user", cascade="all, delete-orphan")

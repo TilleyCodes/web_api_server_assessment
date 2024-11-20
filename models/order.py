@@ -10,7 +10,7 @@ class Order(db.Model):
     trade_date = db.Column(db.Date, nullable=False, default=date.today)
     order_type = db.Column(db.Enum(OrderType), nullable=False) # this has enumerate
     quantity = db.Column(db.Integer, nullable=False)
-    net_amount = db.Column(db.Decimal(precision=15, scale=2),nullable=False)
+    net_amount = db.Column(db.Numeric(precision=15, scale=2),nullable=False)
     order_status = db.Column(db.Enum(OrderStatus), nullable=False) # this has enumerate
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey("stocks.id"), nullable=False)
