@@ -1,5 +1,5 @@
 import enum 
 
 class OrderStatus(enum.Enum):
-    PENDING = "Pending"
-    EXECUTED = "Executed"
+    PENDING = "PENDING"
+    EXECUTED = "EXECUTED"
