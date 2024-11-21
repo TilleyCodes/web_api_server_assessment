@@ -399,5 +399,4 @@ def seed_tables():
 
      db.session.commit()
 
-
      print("Tables seeded")
