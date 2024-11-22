@@ -68,7 +68,6 @@ def get_user(user_id):
     else:
         return {"message": f"User with id {user_id} does not exist"}, 404
     
-
 # Update - /users/id - PUT or PATCH
 @users_bp.route("/<int:user_id>", methods=["PUT", "PATCH"])
 def update_user(user_id):
@@ -106,3 +105,17 @@ def update_user(user_id):
         return {"message": "Invalid date format. Use YYYY-MM-DD"}, 400
     
 # Delete - /users/id - DELETE 
+@users_bp.route("/<int:user_id>", methods=["DELETE"])
+def delete_user(user_id):
+    # find the user to delete using id
+    stmt = db.select(User).filter_by(id=user_id)
+    user = db.session.scalar(stmt)
+    if user:
+        # delete
+        db.session.delete(user)
+        db.session.commit()
+        # return response
+        return {"message": f"User '{user.f_name}' deleted successfully"}
+    else:
+        # return error response
+        return {"message": f"User with id {user_id} does not exist"}, 404
