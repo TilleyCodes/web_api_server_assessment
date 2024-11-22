@@ -79,7 +79,7 @@ def update_user(user_id):
         body_data = request.get_json()
         # if user exists
         if user:
-            # update the user data fields
+            # update the user data field
             user.f_name=body_data.get("f_name") or user.f_name
             user.l_name=body_data.get("l_name") or user.l_name
             user.email=body_data.get("email") or user.email
@@ -100,9 +100,8 @@ def update_user(user_id):
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # unique constraint violation
             return {"message": "Email address already in use"}, 409
-        return {"message": "Email address already in use"}, 409
     except ValueError: # invalide date format
-        return {"message": "Invalid date format. Use YYYY-MM-DD"}, 400
+        return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
     
 # Delete - /users/id - DELETE 
 @users_bp.route("/<int:user_id>", methods=["DELETE"])

@@ -3,6 +3,7 @@ from flask import Flask
 from init import db, ma
 from controllers.cli_controller import db_commands
 from controllers.user_controller import users_bp
+from controllers.stock_controller import stocks_bp
 
 # basic app factories
 def create_app():
@@ -18,5 +19,6 @@ def create_app():
 
     app.register_blueprint(db_commands) #register blueprint from cli_controller
     app.register_blueprint(users_bp)
+    app.register_blueprint(stocks_bp)
 
     return app # flask app instance inside create_app function
