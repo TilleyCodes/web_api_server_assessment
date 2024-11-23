@@ -47,7 +47,7 @@ def create_user():
             # unique constraint violation
             return {"message": "Email address already in use"}, 409
     except ValueError: # invalide date format
-        return {"message": "Invalid date format. Use YYYY-MM-DD"}, 400
+        return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
         
 # Read all - /users - GET
 @users_bp.route("/")
