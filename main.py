@@ -3,7 +3,7 @@ import os
 from flask import Flask
 
 from init import db, ma
-from controllers import db_commands, users_bp, stocks_bp, orders_bp
+from controllers import db_commands, users_bp, stocks_bp, orders_bp, transactions_bp, portfolios_bp, watchlists_bp
 # from controllers.cli_controller import db_commands
 # from controllers.user_controller import users_bp
 # from controllers.stock_controller import stocks_bp
@@ -24,5 +24,8 @@ def create_app():
     app.register_blueprint(users_bp)
     app.register_blueprint(stocks_bp)
     app.register_blueprint(orders_bp)
+    app.register_blueprint(transactions_bp)
+    app.register_blueprint(portfolios_bp)
+    app.register_blueprint(watchlists_bp)
 
     return app # flask app instance inside create_app function

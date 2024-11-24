@@ -110,7 +110,7 @@ def update_order(order_id):
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"messgae": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or invalid"}, 400
         
         # if order exists
         if order:
@@ -158,7 +158,7 @@ def update_order(order_id):
             # if order doesn't exist
             return {"message": f"Order with id {order_id} does not exist"}, 404
     except ValueError: # invalide date format
-        return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+        return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400   
     
 # Delete - /orders/id - DELETE 
 @orders_bp.route("/<int:order_id>", methods=["DELETE"])
