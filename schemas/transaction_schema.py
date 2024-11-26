@@ -4,6 +4,7 @@ from init import ma
 from enums import TransactionType
 
 class TransactionSchema(ma.Schema):
+    ordered=True
     class Meta:
         fields = ("id", "transaction_date", "transaction_type", "amount", "user_id", "order_id")
 

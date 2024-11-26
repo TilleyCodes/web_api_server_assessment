@@ -1,6 +1,7 @@
 from init import ma
 
 class UserSchema(ma.Schema):
+    ordered=True
     class Meta:
         fields = ("id", "f_name", "l_name", "email", "account_open_date", "account_balance")
 

@@ -16,6 +16,8 @@ def create_app():
     # provide details of the database
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 
+    app.json.sort_keys = False # to stop json from sorting by keys and sort by order in marshmallow
+
     # parsing flask app instance through a method called init_app
     db.init_app(app)
     ma.init_app(app)

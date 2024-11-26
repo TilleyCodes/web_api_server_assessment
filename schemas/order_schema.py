@@ -4,6 +4,7 @@ from init import ma
 from enums import OrderType, OrderStatus
 
 class OrderSchema(ma.Schema):
+    ordered=True
     class Meta:
         fields = ("id", "trade_date", "order_type", "quantity", "net_amount", "order_status", "user_id", "stock_id")
 
