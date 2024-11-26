@@ -51,10 +51,25 @@ def create_watchlist():
 # Read all - /watchlists - GET
 @watchlists_bp.route("/", methods=["GET"])
 def get_watchlists():
-    stmt = db.select(Watchlist)
-    watchlists_list = db.session.scalars(stmt)
-    data = watchlists_schema.dump(watchlists_list)
-    return data, 200
+        stmt = db.select(Watchlist) # assigning stmt with base query to avoid repetition
+
+        user_id = request.args.get("user_id")
+        if user_id:
+            stmt = stmt.filter_by(user_id=user_id)
+        
+        stock_id = request.args.get("stock_id")
+        if stock_id:
+            stmt = stmt.filter_by(stock_id=stock_id)        
+        
+        stmt = stmt.order_by(Watchlist.id)
+        watchlists_list = db.session.scalars(stmt).all()
+        if not watchlists_list:
+            if user_id and not stock_id:
+                return {"message": f"No watchlists found for user_id {user_id}"}, 404
+            elif stock_id and not user_id:
+                return {"message": f"No watchlists found for stock_id {stock_id}"}, 404
+        data = watchlists_schema.dump(watchlists_list)
+        return data, 200
 
 # Read one - /watchlists/id - GET
 @watchlists_bp.route("/<int:watchlist_id>")
