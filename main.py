@@ -1,3 +1,7 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+
 import os
 
 from flask import Flask
@@ -12,7 +16,7 @@ from controllers import db_commands, users_bp, stocks_bp, orders_bp, transaction
 def create_app():
     # initialising flask inside a function
     app = Flask(__name__)
-   
+
     # provide details of the database
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 

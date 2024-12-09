@@ -1,3 +1,5 @@
+# pylint: disable=missing-module-docstring
+
 from .user_schema import UserSchema
 from .stock_schema import StockSchema
 from .order_schema import OrderSchema

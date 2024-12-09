@@ -1,5 +1,3 @@
-from marshmallow import fields
-
 from init import ma
 
 class UserSchema(ma.Schema):

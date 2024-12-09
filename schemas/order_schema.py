@@ -1,5 +1,3 @@
-from marshmallow import fields, post_dump
-
 from init import ma
 from enums import OrderType, OrderStatus
 

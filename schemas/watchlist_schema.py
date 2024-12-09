@@ -1,3 +1,6 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
 from init import ma
 
 class WatchlistSchema(ma.Schema):
