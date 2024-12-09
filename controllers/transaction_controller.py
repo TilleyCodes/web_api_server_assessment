@@ -145,7 +145,7 @@ def update_transaction(transaction_id):
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
     
-# Delete - /otransactions/id - DELETE 
+# Delete - /transactions/id - DELETE 
 @transactions_bp.route("/<int:transaction_id>", methods=["DELETE"])
 def delete_order(transaction_id):
     # find the transaction to delete using id
