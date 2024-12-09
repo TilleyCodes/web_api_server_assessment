@@ -1,3 +1,9 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
+from marshmallow import fields
+
 from init import ma
 
 class UserSchema(ma.Schema):
