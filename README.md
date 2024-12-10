@@ -3,10 +3,9 @@
 ## Table Of Contents
 
 1. [Overview and Purpose](#overview-and-purpose)
-2. [Purpose](#purpose)
-3. [Features and Functions](#features-and-functions)
-4. [User Stories](#user-stories)
-5. [Problems the application is addressing](#Problems-the-application-is-addressing)
+2. [Features and Functions](#features-and-functions)
+3. [Stystem Requirements](#system-requirements)
+5. [Installation](#installation)
 6. [Set Up](#set-up)
 7. [Application Help](<#application help>)
 8. [References](#references)
@@ -16,7 +15,7 @@
 ## Overview and Purpose
 
 This Investment Portfolio Management Web Application is designed to simplify the investment activities of it's users.  
-The purpose of this application is to allow the investors on the platform to manage their investment activities as well as execute trades,track their portfolio performance and monitor stocks.  
+The purpose of this application is to allow the investors on the platform to manage their investment activities as well as execute trades,track their portfolio performance and monitor thier stocks of interest.    
 
 ---
 
@@ -27,14 +26,14 @@ The purpose of this application is to allow the investors on the platform to man
 	- Record all financial activities (deposits, withdrawals, buys, sells).  
 	- Store transaction details (date, type, amount, status) for history tracking.  
 - User Accounts and Profiles  
-    - Create accounts with personal information (name, email, balance).  
-	- View account opening date and current balance.  
+    - Create accounts with personal information (name, email).  
+	- View account registration date and current balance.  
 - Portfolios and Holdings  
 	- Manage portfolios with specific stock holdings and units.  
 	- Track portfolio performance and included stocks.  
 - Watchlists  
 	- Create watchlists to monitor stocks of interest.  
-	- Keep a record of stocks users are tracking.  
+	- Keep a record of stocks invetors are tracking.  
 - Stock Information  
 	- Access stock details (name, ticker, market price).    
 	- View information about stocks in portfolios or watchlists.     
@@ -58,14 +57,7 @@ The purpose of this application is to allow the investors on the platform to man
 
 ---
 
-## Set Up
-
-This application is run in terminal CLI and requires the latest python3 version installed.  
-Please use the links under installation for steps to install.
-
----
-
-### Installation
+## Installation
 
 1. Please ensure to downlod the latest [Python3](https://realpython.com/installing-python/)
 2. Install [Terminal for Windows](https://medium.com/@bonguides25/how-to-install-and-update-windows-terminal-in-windows-10-11-b85361b1aa07#:~:text=The%20first%20and%20easiest%20way,minutes%20to%20download%20and%20install.), or [Terminal for Mac](https://medium.com/@latusikl/the-ultimate-setup-for-macos-terminal-7fd340f58366)
@@ -165,7 +157,13 @@ pip install psycopg2-binary
 pip install python-dotenv
 ```  
 
----
+---  
+
+## Set Up
+
+1. 
+
+---  
 
 ### Ethical Impact of the Licenses
 

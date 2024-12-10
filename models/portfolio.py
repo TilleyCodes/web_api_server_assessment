@@ -1,6 +1,7 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
 from init import db
-from models.user import User
-from models.stock import Stock
 
 class Portfolio(db.Model):
     __tablename__ = "portfolios"

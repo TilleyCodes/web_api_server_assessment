@@ -1,9 +1,12 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
 from datetime import date
 
 from init import db
 from enums import OrderType, OrderStatus
-from models.user import User
-from models.stock import Stock
+
 
 
 class Order(db.Model):
@@ -17,7 +20,7 @@ class Order(db.Model):
     order_status = db.Column(db.Enum(OrderStatus), nullable=False) # this has enumerate
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey("stocks.id"), nullable=False)
-    #relationship  can have many orders to 1 user and 1 stock, 1 order to 1 transaction 
+    #relationship  can have many orders to 1 user and 1 stock, 1 order to 1 transaction
     user = db.relationship("User", back_populates= "orders")
     stock = db.relationship("Stock", back_populates = "orders") # dont need cascade delete as this refers to users and stocks table
     transaction = db.relationship("Transaction", back_populates = "order", cascade="all, delete-orphan")

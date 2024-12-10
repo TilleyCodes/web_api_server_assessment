@@ -1,9 +1,10 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
 from datetime import date
 
 from init import db
 from enums import TransactionType
-from models.user import User
-from models.order import Order
 
 class Transaction(db.Model):
     __tablename__ = "transactions"

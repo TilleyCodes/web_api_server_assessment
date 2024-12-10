@@ -1,3 +1,7 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+
 from init import db
 
 class Stock(db.Model):
