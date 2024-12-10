@@ -1,4 +1,4 @@
-# Investment Portfolio Management Web Application API Server
+# Investment Portfolio Management Web API Server
 
 ## Table Of Contents
 
@@ -105,7 +105,7 @@ pip install -r requirements.txt
 Installation for the following packages are required for the web API server to run successfully. Steps 5.i-iib under Installation must be completed before running the pip install command below.
 List of required packages are under requirements.txt file and can be used to bulk install per step 6 above.  
 
-- Flask==3.1.0 - a Python web framework used to design web application, APIs and micrservices.
+- Flask==3.1.0 - a web framework fro python used to design web application, APIs and microservices.
     - dependencies: 
         - Werkzeug: 3.1.3  
         - Jinja2: 3.1.4 
@@ -161,27 +161,35 @@ pip install python-dotenv
 
 ## Set Up
 
-1. 
+### PostgreSQL  
+
+1. Run the following command in terminal to enter into the postrgreSQL repol environment:  
+   ```bash
+   psql
+   ```  
+
+2. Create a database:
+```sql
+   CREATE DATABASE web_api_db;
+   ```   
+
+3. 
 
 ---  
 
-### Ethical Impact of the Licenses
+## Ethical Impact of the Licenses
 
-#### MIT License 
+### MIT License 
 
 The MIT license is a simple and permissive software license widely used by developers for its brevity and use, modification and distribution with very limited legal barriers for both commercial and personal use. As one of the most simplistic and permissive licenses used, the MIT License includes some significant ethical risks when releasing code for use by others, being its lack of warranty and liability, meaning users are able to use your code for whatever purposes or projects they choose to, with little to no constraints or limitations on your end and no legal repercussions if used in unethical practices.
 
-#### GNU General Public License v3.0
+### GNU General Public License v3.0
 
 The GNU General Public License v3.0 is a popular software license that lives within a group named the GNU General Public Licenses, that ensures users the freedom to use, share, and modify all software using their license. Being a widely used and ensuring the freedom of use under its licensing it shares similar ethical risks as the MIT License does, being that all code released under the General Public License are able to be used by any other users for any purposes or projects.
 
-#### BSD License (BSD-3-Clause)
+### BSD License (BSD-3-Clause)
 
 The BSD License is another popular open source software license offering developers a flexible and permissive framework for software distribution with minimal restrictions and limitations on how software can be used, modified or redistributed. With the freedom that comes from minimal constraints it also shares the same ethical risks as other popular free software licenses, with very limited actions that can be taken if users decide to use your source code for unethical practices.
-
-#### api.exchangeratesapi.io
-
-Please visit this link for [Master Software as a Service Subscription Agreement (SaaS)](https://exchangeratesapi.io/agreement/)
 
 ---
 
