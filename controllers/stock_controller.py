@@ -1,9 +1,14 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=bad-indentation
+
 from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models.stock import Stock 
+from models.stock import Stock
 from schemas.stock_schema import stocks_schema, stock_schema
 
 stocks_bp = Blueprint("stocks", __name__, url_prefix="/stocks")
@@ -21,7 +26,7 @@ def create_stock():
             ticker=body_data.get("ticker"),
             stock_price=body_data.get("stock_price"),
         )
-        
+
         db.session.add(new_stock)
         db.session.commit()
         # return a response
@@ -33,7 +38,7 @@ def create_stock():
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # unique constraint violation
             return {"message": f"This stock '{body_data.get('stock_name')}' or ticker '{body_data.get('ticker')}' already exists"}, 409
-        
+
 # Read all - /stocks - GET
 @stocks_bp.route("/")
 def get_stocks():
@@ -52,7 +57,7 @@ def get_stock(stock_id):
         return data
     else:
         return {"message": f"Stock with id {stock_id} does not exist"}, 404
-    
+
 # Update - /stocks/id - PUT or PATCH
 @stocks_bp.route("/<int:stock_id>", methods=["PUT", "PATCH"])
 def update_stock(stock_id):
@@ -74,8 +79,8 @@ def update_stock(stock_id):
         else:
             # if stock doesn't exist
             return {"message": f"Stock with id {stock_id} does not exist"}, 404
-    
-# Delete - /stocks/id - DELETE 
+
+# Delete - /stocks/id - DELETE
 @stocks_bp.route("/<int:stock_id>", methods=["DELETE"])
 def delete_stock(stock_id):
     # find the stock to delete using id
@@ -89,3 +94,4 @@ def delete_stock(stock_id):
     else:
         # return error response
         return {"message": f"Stock with id {stock_id} does not exist"}, 404
+    

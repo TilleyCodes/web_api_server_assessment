@@ -1,3 +1,6 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+
 from datetime import date
 
 from flask import Blueprint, request
@@ -5,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models.user import User 
+from models.user import User
 from schemas.user_schema import users_schema, user_schema
 
 users_bp = Blueprint("users", __name__, url_prefix="/users")
@@ -42,13 +45,13 @@ def create_user():
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
-        
+
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # unique constraint violation
             return {"message": "Email address already in use"}, 409
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
-        
+
 # Read all - /users - GET
 @users_bp.route("/")
 def get_users():
@@ -67,7 +70,7 @@ def get_user(user_id):
         return data
     else:
         return {"message": f"User with id {user_id} does not exist"}, 404
-    
+
 # Update - /users/id - PUT or PATCH
 @users_bp.route("/<int:user_id>", methods=["PUT", "PATCH"])
 def update_user(user_id):
@@ -102,8 +105,8 @@ def update_user(user_id):
             return {"message": "Email address already in use"}, 409
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
-    
-# Delete - /users/id - DELETE 
+
+# Delete - /users/id - DELETE
 @users_bp.route("/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
     # find the user to delete using id
@@ -118,3 +121,4 @@ def delete_user(user_id):
     else:
         # return error response
         return {"message": f"User with id {user_id} does not exist"}, 404
+    

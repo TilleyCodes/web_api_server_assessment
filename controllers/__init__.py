@@ -1,3 +1,5 @@
+# pylint: disable=missing-module-docstring
+
 from .cli_controller import db_commands
 from .user_controller import users_bp
 from .order_controller import orders_bp

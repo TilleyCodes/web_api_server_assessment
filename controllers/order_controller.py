@@ -1,3 +1,8 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+
+
 from datetime import date
 
 from flask import Blueprint, request
@@ -8,7 +13,7 @@ from init import db
 from models.order import Order
 from models.user import User
 from models.stock import Stock
-from enums import OrderType, OrderStatus 
+from enums import OrderType, OrderStatus
 from schemas.order_schema import orders_schema, order_schema
 
 orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
@@ -33,13 +38,13 @@ def create_order():
             order_type = OrderType(body_data.get("order_type"))
         except ValueError:
             return{"message": f"Invalid order type. Please use one of the following: {[e.value for e in OrderType]}"}, 400
-        
+
         # validate and convert order_status
         try:
             order_status = OrderStatus(body_data.get("order_status"))
         except ValueError:
             return{"message": f"Invalid order status. Please use one of the following: {[e.value for e in OrderStatus]}"}, 400
-        
+
         # Check for valid user_id
         user_id = body_data.get("user_id")
         user = db.session.get(User, user_id)  # Check if user exists
@@ -51,7 +56,7 @@ def create_order():
         stock = db.session.get(Stock, stock_id)  # Check if stock exists
         if not stock:
             return {"message": f"Invalid stock_id: {stock_id}. Stock does not exist."}, 404
-        
+
         # create order instance
         new_order = Order(
             trade_date=trade_date,
@@ -68,15 +73,15 @@ def create_order():
         db.session.commit()
         # return a response
         return order_schema.dump(new_order), 201
-    
+
     except IntegrityError as err:
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
-    
+
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
-        
+
 # Read all - /orders - GET
 @orders_bp.route("/", methods=["GET"])
 def get_orders():
@@ -95,7 +100,7 @@ def get_order(order_id):
         return data, 200
     else:
         return {"message": f"Order with id {order_id} does not exist"}, 404
-    
+
 # Update - /orders/id - PUT or PATCH
 @orders_bp.route("/<int:order_id>", methods=["PUT", "PATCH"])
 def update_order(order_id):
@@ -106,12 +111,12 @@ def update_order(order_id):
         # if order id does not exist
         if not order:
             return {"message": f"Order with id {order_id} does not exist"}, 404
-        
+
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
             return {"message": "Request body is missing or invalid"}, 400
-        
+
         # if order exists
         if order:
             # update the order data field
@@ -126,7 +131,7 @@ def update_order(order_id):
                 order.order_type = OrderType(body_data["order_type"])
             except ValueError:
                 return{"message": f"Invalid order type. Please use one of the following: {[e.value for e in OrderType]}"}, 400
-            
+
             # validate and update order_status
         if "order_status" in body_data:
             try:
@@ -146,9 +151,9 @@ def update_order(order_id):
             if not stock:
                 return {"message": f"Invalid stock_id: {body_data['stock_id']}. Stock does not exist."}, 404
             order.stock_id = body_data["stock_id"]
-            
+
             order.quantity=body_data.get("quantity") or order.quantity
-            order.net_amount=body_data.get("net_amount") or order.net_amount    
+            order.net_amount=body_data.get("net_amount") or order.net_amount
 
             # commit changes
             db.session.commit()
@@ -158,9 +163,9 @@ def update_order(order_id):
             # if order doesn't exist
             return {"message": f"Order with id {order_id} does not exist"}, 404
     except ValueError: # invalide date format
-        return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400   
-    
-# Delete - /orders/id - DELETE 
+        return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+
+# Delete - /orders/id - DELETE
 @orders_bp.route("/<int:order_id>", methods=["DELETE"])
 def delete_order(order_id):
     # find the order to delete using id
@@ -175,3 +180,4 @@ def delete_order(order_id):
     else:
         # return error response
         return {"message": f"Order with id {order_id} does not exist"}, 404
+    

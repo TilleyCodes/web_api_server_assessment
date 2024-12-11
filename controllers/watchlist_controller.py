@@ -1,3 +1,8 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=bad-indentation
+
 from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
@@ -18,7 +23,7 @@ def create_watchlist():
         body_data = request.get_json()
         if not body_data:
             return {"messgae": "Request body is missing or invalid"}, 400
-        
+
         # Check for valid user_id
         user_id = body_data.get("user_id")
         user = db.session.get(User, user_id)  # Check if user exists
@@ -30,7 +35,7 @@ def create_watchlist():
         stock = db.session.get(Stock, stock_id)  # Check if stock exists
         if not stock:
             return {"message": f"Invalid stock_id: {stock_id}. Stock does not exist."}, 404
-        
+
         # create watchlist instance
         new_watchlist = Watchlist(
             user_id=user_id,
@@ -42,12 +47,12 @@ def create_watchlist():
         db.session.commit()
         # return a response
         return watchlist_schema.dump(new_watchlist), 201
-    
+
     except IntegrityError as err:
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
-        
+
 # Read all - /watchlists - GET
 @watchlists_bp.route("/", methods=["GET"])
 def get_watchlists():
@@ -56,11 +61,11 @@ def get_watchlists():
         user_id = request.args.get("user_id")
         if user_id:
             stmt = stmt.filter_by(user_id=user_id)
-        
+
         stock_id = request.args.get("stock_id")
         if stock_id:
-            stmt = stmt.filter_by(stock_id=stock_id)        
-        
+            stmt = stmt.filter_by(stock_id=stock_id)
+
         stmt = stmt.order_by(Watchlist.id)
         watchlists_list = db.session.scalars(stmt).all()
         if not watchlists_list:
@@ -81,7 +86,7 @@ def get_watchlist(watchlist_id):
         return data, 200
     else:
         return {"message": f"Watchlist with id {watchlist_id} does not exist"}, 404
-    
+
 # Update - /watchlists/id - PUT or PATCH
 @watchlists_bp.route("/<int:watchlist_id>", methods=["PUT", "PATCH"])
 def update_watchlist(watchlist_id):
@@ -92,12 +97,12 @@ def update_watchlist(watchlist_id):
         # if watchlist id does not exist
         if not watchlist:
             return {"message": f"Watchlist with id {watchlist_id} does not exist"}, 404
-        
+
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
             return {"message": "Request body is missing or invalid"}, 400
-                   
+
               # Validate user_id if provided
         if "user_id" in body_data:
             user = db.session.get(User, body_data["user_id"])
@@ -110,7 +115,7 @@ def update_watchlist(watchlist_id):
             stock = db.session.get(Stock, body_data["stock_id"])
             if not stock:
                 return {"message": f"Invalid stock_id: {body_data['stock_id']}. Stock does not exist."}, 404
-            watchlist.stock_id = body_data["stock_id"]   
+            watchlist.stock_id = body_data["stock_id"]
 
             # commit changes
             db.session.commit()
@@ -123,8 +128,8 @@ def update_watchlist(watchlist_id):
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
-        
-# Delete - /watchlists/id - DELETE 
+
+# Delete - /watchlists/id - DELETE
 @watchlists_bp.route("/<int:watchlist_id>", methods=["DELETE"])
 def delete_watchlist(watchlist_id):
     # find the watchlist to delete using id
@@ -139,3 +144,4 @@ def delete_watchlist(watchlist_id):
     else:
         # return error response
         return {"message": f"Watchlist with id {watchlist_id} does not exist"}, 404
+    

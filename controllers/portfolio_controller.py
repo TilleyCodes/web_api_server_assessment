@@ -1,3 +1,8 @@
+# pylint: disable=line-too-long
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+
+
 from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
@@ -18,7 +23,7 @@ def create_portfolio():
         body_data = request.get_json()
         if not body_data:
             return {"messgae": "Request body is missing or invalid"}, 400
-        
+
         # Check for valid user_id
         user_id = body_data.get("user_id")
         user = db.session.get(User, user_id)  # Check if user exists
@@ -30,7 +35,7 @@ def create_portfolio():
         stock = db.session.get(Stock, stock_id)  # Check if stock exists
         if not stock:
             return {"message": f"Invalid stock_id: {stock_id}. Stock does not exist."}, 404
-        
+
         # create portfolio instance
         new_portfolio = Portfolio(
             number_of_units=body_data.get("number_of_units"),
@@ -43,12 +48,12 @@ def create_portfolio():
         db.session.commit()
         # return a response
         return portfolio_schema.dump(new_portfolio), 201
-    
+
     except IntegrityError as err:
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
-        
+
 # Read all - /portfolios - GET
 @portfolios_bp.route("/", methods=["GET"])
 def get_portfolios():
@@ -67,7 +72,7 @@ def get_portfolio(portfolio_id):
         return data, 200
     else:
         return {"message": f"Portfolio with id {portfolio_id} does not exist"}, 404
-    
+
 # Update - /portfolios/id - PUT or PATCH
 @portfolios_bp.route("/<int:portfolio_id>", methods=["PUT", "PATCH"])
 def update_portfolio(portfolio_id):
@@ -78,12 +83,12 @@ def update_portfolio(portfolio_id):
         # if portfolio id does not exist
         if not portfolio:
             return {"message": f"Portfolio with id {portfolio_id} does not exist"}, 404
-        
+
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
             return {"message": "Request body is missing or invalid"}, 400
-                   
+
               # Validate user_id if provided
         if "user_id" in body_data:
             user = db.session.get(User, body_data["user_id"])
@@ -97,8 +102,8 @@ def update_portfolio(portfolio_id):
             if not stock:
                 return {"message": f"Invalid stock_id: {body_data['stock_id']}. Stock does not exist."}, 404
             portfolio.stock_id = body_data["stock_id"]
-            
-            portfolio.number_of_units=body_data.get("number_of_units") or portfolio.number_of_units    
+
+            portfolio.number_of_units=body_data.get("number_of_units") or portfolio.number_of_units
 
             # commit changes
             db.session.commit()
@@ -111,8 +116,8 @@ def update_portfolio(portfolio_id):
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
-        
-# Delete - /portfolios/id - DELETE 
+
+# Delete - /portfolios/id - DELETE
 @portfolios_bp.route("/<int:portfolio_id>", methods=["DELETE"])
 def delete_portfolio(portfolio_id):
     # find the portfolio to delete using id
@@ -127,3 +132,4 @@ def delete_portfolio(portfolio_id):
     else:
         # return error response
         return {"message": f"Portfolio with id {portfolio_id} does not exist"}, 404
+    
