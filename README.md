@@ -70,32 +70,32 @@ git clone https://github.com/TilleyCodes/web_api_server_assessment
     Follow these steps in terminal **before** installing the dependant packages:  
     i. enter virtual environment 
 ```bash
-python -m venv env
+    python -m venv env
 ```  
 - once the the program has run you will see a folder named .venv     
    
     iia. activate environment for macOS/Linux 
 ```bash
-source .venv/bin/activate
+    source .venv/bin/activate
 ```  
 
 or,  
 
     iib. activate environment for windows input:  
  ```bash
-  .\env\Scripts\activate
+    .\env\Scripts\activate
   ```
 - this will activate virtual environment. You can then run the pip install command for the corresponding packages per below.    
 
     iii. deactivate virtual environment  
 ```bash
-deactivate
+    deactivate
 ```  
 - this will exit out of the virtual environment   
 
 6. Install the depandent packages as listed in requirements.txt in bulk with the following command or skip this step if you prefer to install the packages separately - follow the commands under packages:  
 ```bash
-pip install -r requirements.txt
+    pip install -r requirements.txt
 ``` 
 
 ---
@@ -124,7 +124,7 @@ List of required packages are under requirements.txt file and can be used to bul
     - license: [BSD License](https://github.com/pallets-eco/flask-sqlalchemy/blob/main/LICENSE.txt).  
     - Copyright 2010 Pallets    
 ```bash
-pip install Flask-SQLAlchemy
+    pip install Flask-SQLAlchemy
 ```
 
 - flask-marshmallow 1.2.1 - a thin integration layer for Flask and marshmallow used to serialise and deserialise.  
@@ -133,28 +133,28 @@ pip install Flask-SQLAlchemy
     - license: [MIT License(MIT)](https://github.com/marshmallow-code/flask-marshmallow/blob/dev/LICENSE).    
     - Copyright Steven Loria and contributors      
 ```bash
-pip install flask-marshmallow
+    pip install flask-marshmallow
 ```
 
 - marshmallow-sqlalchemy==1.1.0 - SQLAlchemy integration with the marshmallow serialise and deserialise.  
     - license: [MIT License (MIT)](https://github.com/marshmallow-code/marshmallow-sqlalchemy/blob/dev/LICENSE).  
     - Copyright Steven Loria and contributors  
 ```bash
-pip install marshmallow-sqlalchemy  
+    pip install marshmallow-sqlalchemy  
 ```  
 
 - psycopg2-binary==2.9.10 - a PostgreSQL database adapter for Python used to connect applications to databases.      
     - license: [Lesser General Public License (LGPL) (LGPL with exceptions)](https://github.com/psycopg/psycopg2/blob/master/LICENSE).    
     - copywrite 2001-2021, Federico Di Gregorio, Daniele Varrazzo, The Psycopg Team.      
 ```bash
-pip install psycopg2-binary
+    pip install psycopg2-binary
 ```  
 
 - python-dotenv==1.0.1 - This package allows users to store key-value pairs from a ".env" file and sets them as environmental variables, allowing the storage of sensitive data that can be excluded from deployment to the public.  
     - license: BSD License (BSD-3-Clause)  
     - copywrite 2014 Saurabh Kumar (python-dotenv), 2013 Ted Tieken (django-dotenv-rw), 2013 Jacob Kaplan-Moss (django-dotenv)  
 ```bash
-pip install python-dotenv
+    pip install python-dotenv
 ```  
 
 ---  
@@ -166,14 +166,30 @@ pip install python-dotenv
 1. Run the following command in terminal to enter into the postrgreSQL repol environment:  
    ```bash
    psql
-   ```  
+   ```    
 
 2. Create a database:
 ```sql
    CREATE DATABASE web_api_db;
-   ```   
+```     
 
-3. 
+3. Create a user and password (choose you own user and password):
+```sql
+    CREATE USER <user_name> WITH PASSWORD <'******'>;
+```    
+
+4. Grant permission to interact with the database (replace user_name with the name created in step 3): 
+```sql
+    GRANT ALL PRIVILEGES ON DATABASE web_api_db TO <user_name>;
+```  
+
+5. Create .env file and add to DATABASE_URI with the following (replace user name and password per set up):
+```bash
+    DATABASE_URI=postgresql://<username>:<password>@localhost:5432/web_api_db
+
+### zsh
+
+1. 
 
 ---  
 
