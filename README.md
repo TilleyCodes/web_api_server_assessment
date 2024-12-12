@@ -5,10 +5,10 @@
 1. [Overview and Purpose](#overview-and-purpose)
 2. [Features and Functions](#features-and-functions)
 3. [Stystem Requirements](#system-requirements)
-5. [Installation](#installation)
-6. [Set Up](#set-up)
-7. [Application Help](<#application help>)
-8. [References](#references)
+4. [Installation](#installation)
+5. [Set Up](#set-up)
+6. [Ethical Impact of the Licenses](ethical-impact-of-the-licenses)
+7. [Database System](#database-system)
 
 ---
 
@@ -186,10 +186,35 @@ List of required packages are under requirements.txt file and can be used to bul
 5. Create .env file and add to DATABASE_URI with the following (replace user name and password per set up):
 ```bash
     DATABASE_URI=postgresql://<username>:<password>@localhost:5432/web_api_db
+```
+  
+### zsh  
 
-### zsh
+Run the following command in a new terminal to create and seed the tables before starting the development server:    
 
-1. 
+1. Create the tables:  
+```bash
+    flask db create
+```  
+
+2. Seed the tables:
+```bash
+    flask db seed
+``` 
+
+3. Drop the tables: 
+```bash
+    flask db seed
+```     
+
+**Note:** If you do drop the tables, ensure to re-create and seed the tables again.  
+
+4. Start the development server:  
+```bash
+    flask run
+```     
+
+**** Need to update the insomia and render part****
 
 ---  
 
@@ -197,17 +222,63 @@ List of required packages are under requirements.txt file and can be used to bul
 
 ### MIT License 
 
-The MIT license is a simple and permissive software license widely used by developers for its brevity and use, modification and distribution with very limited legal barriers for both commercial and personal use. As one of the most simplistic and permissive licenses used, the MIT License includes some significant ethical risks when releasing code for use by others, being its lack of warranty and liability, meaning users are able to use your code for whatever purposes or projects they choose to, with little to no constraints or limitations on your end and no legal repercussions if used in unethical practices.
+The MIT License is a permissive license that allows users to freely use, modify, distribute, and sublicense the software with minimal restrictions. The only condition is to include the original copyright notice and license terms in any distribution.
 
-### GNU General Public License v3.0
+- Promotes freedom and flexibility for developers and businesses, encouraging innovation and wide adoption.  
+- Ensures minimal barriers for commercial use, which can support economic growth.  
+- Does not enforce ethical constraints or obligations on how the software is used, which might allow it to be utilised in ways that the original developers might ethically oppose.  
 
-The GNU General Public License v3.0 is a popular software license that lives within a group named the GNU General Public Licenses, that ensures users the freedom to use, share, and modify all software using their license. Being a widely used and ensuring the freedom of use under its licensing it shares similar ethical risks as the MIT License does, being that all code released under the General Public License are able to be used by any other users for any purposes or projects.
+
+### GNU Lesser General Public License
+
+The LGPL is a more permissive version of the GNU General Public License (GPL). It allows linking to proprietary software without requiring the proprietary code to also be open-sourced, but modifications to the LGPL-covered code must remain open-source.
+
+- Balances between the freedom to use software in proprietary systems and the commitment to open-source principles by requiring contributions back to the open-source community for modifications.
+- Promotes collaborative development and prevents proprietary monopolisation of core libraries, which supports fairness and equity in software use.
+- May not go far enough in ensuring all derived works remain open-source.  
 
 ### BSD License (BSD-3-Clause)
 
-The BSD License is another popular open source software license offering developers a flexible and permissive framework for software distribution with minimal restrictions and limitations on how software can be used, modified or redistributed. With the freedom that comes from minimal constraints it also shares the same ethical risks as other popular free software licenses, with very limited actions that can be taken if users decide to use your source code for unethical practices.
+The BSD License is a permissive and allows users to freely use, modify, and redistribute the software.    
+  
+- Encourages wide adoption and reuse of code by placing few restrictions.
+- Supports both open-source and proprietary development, facilitating economic opportunities and innovation.  
+- Lacks ethical guardrails on how the software might be used, meaning it could be applied in contexts or for purposes that the original developers might not support.    
 
 ---
+
+## Database System
+
+### Why PostgreSQL is the chosen databse for this web API:  
+
+- PostgreSQL is a reliable, enterprise-grade relational database.
+- It enforces data consistency and integrity, crucial for financial applications.
+- PostgreSQL has advanced SQL capabilities for complex querying and analytics.
+- It can handle large data volumes and high user concurrency, providing scalability.
+- The extensible ecosystem allows adding specialised features as needed.
+- PostgreSQL's relational model aligns well with the structured financial data.
+- Compared to NoSQL databases, PostgreSQL is a better fit for this application.
+- Overall, PostgreSQL provides the necessary data integrity, querying power, scalability, and extensibility for this investment portfolio management API.  
+
+### PostgreSQL (RDBMS) vs MongoDB (NoSQL Database)
+
+- Data Structure:    
+    - PostgreSQL organises data in structured tables with predefined schemas.  
+    - MongoDB uses a schema-less model, storing data in document-oriented JSON-like BSON objects.    
+
+- Data Integrity:  
+    - PostgreSQL enforces data consistency through strict schemas, primary keys, and foreign keys.  
+    - MongoDB trades data integrity for flexibility, allowing loosely defined data structures but risking inconsistency.    
+ 
+- Querying:    
+    - PostgreSQL excels at complex queries involving multiple tables and joins.    
+    - MongoDB performs well with simple queries and high-speed data retrieval but lacks the querying power of SQL.    
+
+- Flexibility:  
+    - PostgreSQL supports structured and semi-structured data (via JSONB), but requires schema changes for major structural adjustments.  
+    - MongoDB’s schema-less nature allows for dynamic changes, making it better suited for applications with rapidly evolving data models.  
+
+---  
 
 ## Application Help
 
@@ -274,10 +345,4 @@ Simply enter the number corresponding to your selection.
 ![screenshot for exit application](screenshots/exit_app.png)
 
 ---
-
-## References
-
-
-
-
 
