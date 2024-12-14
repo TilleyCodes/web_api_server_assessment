@@ -8,9 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models.watchlist import Watchlist
-from models.inverstor import Investor
-from models.stock import Stock
+from models import Watchlist, Investor, Stock
 from schemas.watchlist_schema import watchlists_schema, watchlist_schema
 
 watchlists_bp = Blueprint("watchlists", __name__, url_prefix="/watchlists")

@@ -10,9 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models.order import Order
-from models.inverstor import Investor
-from models.stock import Stock
+from models import Order, Investor, Stock
 from enums import OrderType, OrderStatus
 from schemas.order_schema import orders_schema, order_schema
 

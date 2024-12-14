@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models.stock import Stock
+from models import Stock
 from schemas.stock_schema import stocks_schema, stock_schema
 
 stocks_bp = Blueprint("stocks", __name__, url_prefix="/stocks")

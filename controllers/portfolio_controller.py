@@ -8,9 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models.portfolio import Portfolio
-from models.inverstor import Investor
-from models.stock import Stock
+from models import Portfolio, Investor, Stock
 from schemas.portfolio_schema import portfolios_schema, portfolio_schema
 
 portfolios_bp = Blueprint("portfolios", __name__, url_prefix="/portfolios")
