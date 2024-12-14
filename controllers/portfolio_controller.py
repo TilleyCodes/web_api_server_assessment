@@ -9,7 +9,7 @@ from psycopg2 import errorcodes
 
 from init import db
 from models.portfolio import Portfolio
-from models.user import User
+from models.inverstor import Investor
 from models.stock import Stock
 from schemas.portfolio_schema import portfolios_schema, portfolio_schema
 
@@ -24,11 +24,11 @@ def create_portfolio():
         if not body_data:
             return {"messgae": "Request body is missing or invalid"}, 400
 
-        # Check for valid user_id
-        user_id = body_data.get("user_id")
-        user = db.session.get(User, user_id)  # Check if user exists
-        if not user:
-            return {"message": f"Invalid user_id: {user_id}. User does not exist."}, 404
+        # Check for valid investor_id
+        investor_id = body_data.get("investor_id")
+        investor = db.session.get(Investor, investor_id)  # Check if investor exists
+        if not investor:
+            return {"message": f"Invalid investor_id: {investor_id}. Investor does not exist."}, 404
 
         # Check for valid stock_id
         stock_id = body_data.get("stock_id")
@@ -39,8 +39,8 @@ def create_portfolio():
         # create portfolio instance
         new_portfolio = Portfolio(
             number_of_units=body_data.get("number_of_units"),
-            user_id=user_id,
-            stock_id=user_id
+            investor_id=investor_id,
+            stock_id=investor_id
         )
         # add to the session
         db.session.add(new_portfolio)
@@ -89,12 +89,12 @@ def update_portfolio(portfolio_id):
         if not body_data:
             return {"message": "Request body is missing or invalid"}, 400
 
-              # Validate user_id if provided
-        if "user_id" in body_data:
-            user = db.session.get(User, body_data["user_id"])
-            if not user:
-                return {"message": f"Invalid user_id: {body_data['user_id']}. User does not exist."}, 404
-            portfolio.user_id = body_data["user_id"]
+              # Validate investor_id if provided
+        if "investor_id" in body_data:
+            investor = db.session.get(Investor, body_data["investor_id"])
+            if not investor:
+                return {"message": f"Invalid investor_id: {body_data['investor_id']}. Investor does not exist."}, 404
+            portfolio.investor_id = body_data["investor_id"]
 
         # Validate stock_id if provided
         if "stock_id" in body_data:

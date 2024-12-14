@@ -11,7 +11,7 @@ from psycopg2 import errorcodes
 
 from init import db
 from models.order import Order
-from models.user import User
+from models.inverstor import Investor
 from models.stock import Stock
 from enums import OrderType, OrderStatus
 from schemas.order_schema import orders_schema, order_schema
@@ -45,11 +45,11 @@ def create_order():
         except ValueError:
             return{"message": f"Invalid order status. Please use one of the following: {[e.value for e in OrderStatus]}"}, 400
 
-        # Check for valid user_id
-        user_id = body_data.get("user_id")
-        user = db.session.get(User, user_id)  # Check if user exists
-        if not user:
-            return {"message": f"Invalid user_id: {user_id}. User does not exist."}, 404
+        # Check for valid investor_id
+        investor_id = body_data.get("investor_id")
+        investor = db.session.get(Investor, investor_id)  # Check if investor exists
+        if not investor:
+            return {"message": f"Invalid investor_id: {investor_id}. Investor does not exist."}, 404
 
         # Check for valid stock_id
         stock_id = body_data.get("stock_id")
@@ -64,8 +64,8 @@ def create_order():
             quantity=body_data.get("quantity"),
             net_amount=body_data.get("net_amount"),
             order_status=order_status,
-            user_id=user_id,
-            stock_id=user_id
+            investor_id=investor_id,
+            stock_id=investor_id
         )
         # add to the session
         db.session.add(new_order)
@@ -138,12 +138,12 @@ def update_order(order_id):
                 order.order_status = OrderStatus(body_data["order_status"])
             except ValueError:
                 return{"message": f"Invalid order status. Please use one of the following: {[e.value for e in OrderStatus]}"}, 400
-              # Validate user_id if provided
-        if "user_id" in body_data:
-            user = db.session.get(User, body_data["user_id"])
-            if not user:
-                return {"message": f"Invalid user_id: {body_data['user_id']}. User does not exist."}, 404
-            order.user_id = body_data["user_id"]
+              # Validate investor_id if provided
+        if "investor_id" in body_data:
+            investor = db.session.get(Investor, body_data["investor_id"])
+            if not investor:
+                return {"message": f"Invalid investor_id: {body_data['investor_id']}. Investor does not exist."}, 404
+            order.investor_id = body_data["investor_id"]
 
         # Validate stock_id if provided
         if "stock_id" in body_data:

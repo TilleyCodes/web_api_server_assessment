@@ -9,7 +9,7 @@ from psycopg2 import errorcodes
 
 from init import db
 from models.watchlist import Watchlist
-from models.user import User
+from models.inverstor import Investor
 from models.stock import Stock
 from schemas.watchlist_schema import watchlists_schema, watchlist_schema
 
@@ -24,11 +24,11 @@ def create_watchlist():
         if not body_data:
             return {"messgae": "Request body is missing or invalid"}, 400
 
-        # Check for valid user_id
-        user_id = body_data.get("user_id")
-        user = db.session.get(User, user_id)  # Check if user exists
-        if not user:
-            return {"message": f"Invalid user_id: {user_id}. User does not exist."}, 404
+        # Check for valid investor_id
+        investor_id = body_data.get("investor_id")
+        investor = db.session.get(Investor, investor_id)  # Check if investor exists
+        if not investor:
+            return {"message": f"Invalid investor_id: {investor_id}. Investor does not exist."}, 404
 
         # Check for valid stock_id
         stock_id = body_data.get("stock_id")
@@ -38,8 +38,8 @@ def create_watchlist():
 
         # create watchlist instance
         new_watchlist = Watchlist(
-            user_id=user_id,
-            stock_id=user_id
+            investor_id=investor_id,
+            stock_id=investor_id
         )
         # add to the session
         db.session.add(new_watchlist)
@@ -58,9 +58,9 @@ def create_watchlist():
 def get_watchlists():
         stmt = db.select(Watchlist) # assigning stmt with base query to avoid repetition
 
-        user_id = request.args.get("user_id")
-        if user_id:
-            stmt = stmt.filter_by(user_id=user_id)
+        investor_id = request.args.get("investor_id")
+        if investor_id:
+            stmt = stmt.filter_by(investor_id=investor_id)
 
         stock_id = request.args.get("stock_id")
         if stock_id:
@@ -69,9 +69,9 @@ def get_watchlists():
         stmt = stmt.order_by(Watchlist.id)
         watchlists_list = db.session.scalars(stmt).all()
         if not watchlists_list:
-            if user_id and not stock_id:
-                return {"message": f"No watchlists found for user_id {user_id}"}, 404
-            elif stock_id and not user_id:
+            if investor_id and not stock_id:
+                return {"message": f"No watchlists found for investor_id {investor_id}"}, 404
+            elif stock_id and not investor_id:
                 return {"message": f"No watchlists found for stock_id {stock_id}"}, 404
         data = watchlists_schema.dump(watchlists_list)
         return data, 200
@@ -103,12 +103,12 @@ def update_watchlist(watchlist_id):
         if not body_data:
             return {"message": "Request body is missing or invalid"}, 400
 
-              # Validate user_id if provided
-        if "user_id" in body_data:
-            user = db.session.get(User, body_data["user_id"])
-            if not user:
-                return {"message": f"Invalid user_id: {body_data['user_id']}. User does not exist."}, 404
-            watchlist.user_id = body_data["user_id"]
+              # Validate investor_id if provided
+        if "investor_id" in body_data:
+            investor = db.session.get(Investor, body_data["investor_id"])
+            if not investor:
+                return {"message": f"Invalid investor_id: {body_data['investor_id']}. Investor does not exist."}, 404
+            watchlist.investor_id = body_data["investor_id"]
 
         # Validate stock_id if provided
         if "stock_id" in body_data:

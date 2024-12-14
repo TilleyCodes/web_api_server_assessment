@@ -11,10 +11,10 @@ from enums import OrderType, OrderStatus
 
 class OrderSchema(ma.Schema):
     ordered=True
-    user = fields.Nested("UserSchema", only=["f_name", "l_name", "email", "account_balance"])
+    investor = fields.Nested("InvestorSchema", only=["f_name", "l_name", "email", "account_balance"])
     stock = fields.Nested("StockSchema", only=["stock_name", "stock_price"])
     class Meta:
-        fields = ("id", "trade_date", "order_type", "quantity", "net_amount", "order_status", "user_id", "user", "stock_id", "stock" )
+        fields = ("id", "trade_date", "order_type", "quantity", "net_amount", "order_status", "investor_id", "investor", "stock_id", "stock" )
 
     @post_dump
     def serialize_enum(self, data, **kwargs):

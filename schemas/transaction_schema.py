@@ -14,7 +14,7 @@ from enums import TransactionType
 class TransactionSchema(ma.Schema):
     ordered=True
     class Meta:
-        fields = ("id", "transaction_date", "transaction_type", "amount", "user_id", "order_id")
+        fields = ("id", "transaction_date", "transaction_type", "amount", "investor_id", "order_id")
 
     @post_dump
     def serialize_enum(self, data, **kwargs):

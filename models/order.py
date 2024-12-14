@@ -18,9 +18,9 @@ class Order(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     net_amount = db.Column(db.Numeric(precision=15, scale=2),nullable=False)
     order_status = db.Column(db.Enum(OrderStatus), nullable=False) # this has enumerate
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    investor_id = db.Column(db.Integer, db.ForeignKey("investors.id"), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey("stocks.id"), nullable=False)
-    #relationship  can have many orders to 1 user and 1 stock, 1 order to 1 transaction
-    user = db.relationship("User", back_populates= "orders")
-    stock = db.relationship("Stock", back_populates = "orders") # dont need cascade delete as this refers to users and stocks table
+    #relationship  can have many orders to 1 investor and 1 stock, 1 order to 1 transaction
+    investor = db.relationship("Investor", back_populates= "orders")
+    stock = db.relationship("Stock", back_populates = "orders") # dont need cascade delete as this refers to investors and stocks table
     transaction = db.relationship("Transaction", back_populates = "order", cascade="all, delete-orphan")

@@ -10,7 +10,7 @@ from psycopg2 import errorcodes
 
 from init import db
 from models.order import Order
-from models.user import User
+from models.inverstor import Investor
 from models.transaction import Transaction
 from enums import TransactionType
 from schemas.transaction_schema import transactions_schema, transaction_schema
@@ -38,11 +38,11 @@ def create_transaction():
         except ValueError:
             return{"message": f"Invalid transaction type. Please use one of the following: {[e.value for e in TransactionType]}"}, 400
 
-        # Check for valid user_id
-        user_id = body_data.get("user_id")
-        user = db.session.get(User, user_id)  # Check if user exists
-        if not user:
-            return {"message": f"Invalid user_id: {user_id}. User does not exist."}, 404
+        # Check for valid investor_id
+        investor_id = body_data.get("investor_id")
+        investor = db.session.get(Investor, investor_id)  # Check if investor exists
+        if not investor:
+            return {"message": f"Invalid investor_id: {investor_id}. Investor does not exist."}, 404
 
         # Check for valid order_id
         order_id = body_data.get("order_id")
@@ -55,7 +55,7 @@ def create_transaction():
             transaction_date=transaction_date,
             transaction_type=transaction_type,
             amount=body_data.get("amount"),
-            user_id=user_id,
+            investor_id=investor_id,
             order_id=order_id
         )
         # add to the session
@@ -123,12 +123,12 @@ def update_transaction(transaction_id):
             except ValueError:
                 return{"message": f"Invalid transaction type. Please use one of the following: {[e.value for e in TransactionType]}"}, 400
 
-              # Validate user_id if provided
-        if "user_id" in body_data:
-            user = db.session.get(User, body_data["user_id"])
-            if not user:
-                return {"message": f"Invalid user_id: {body_data['user_id']}. User does not exist."}, 404
-            transaction.user_id = body_data["user_id"]
+              # Validate investor_id if provided
+        if "investor_id" in body_data:
+            investor = db.session.get(Investor, body_data["investor_id"])
+            if not investor:
+                return {"message": f"Invalid investor_id: {body_data['investor_id']}. Investor does not exist."}, 404
+            transaction.investor_id = body_data["investor_id"]
 
         # Validate order_id if provided
         if "order_id" in body_data:
