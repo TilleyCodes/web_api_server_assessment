@@ -20,19 +20,12 @@ def create_investor():
         # get information from the request body
         body_data = request.get_json()
 
-        # parse reg_date
-        registration_date = (
-            date.fromisoformat(body_data.get("registration_date"))
-            if body_data.get("registration_date")
-            else None
-        )
-
         # create investor instance
         new_investor = Investor(
             f_name=body_data.get("f_name"),
             l_name=body_data.get("l_name"),
             email=body_data.get("email"),
-            registration_date=registration_date,
+            # registration_date removed so SQLAlchemy can handelt the default current date
             account_balance=body_data.get("account_balance")
         )
         # add to the session
