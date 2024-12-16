@@ -91,6 +91,7 @@ def create_order():
 
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+    return {"message": "An unexpected error occurred."}, 500
 
 # Read all - /orders - GET
 @orders_bp.route("/", methods=["GET"])
@@ -201,7 +202,7 @@ def delete_order(order_id):
         db.session.delete(order)
         db.session.commit()
         # return response
-        return {"message": f"Order with id'{order.id}' deleted successfully"}, 200
+        return {"message": f"Order with id' {order.id}' deleted successfully"}, 200
     else:
         # return error response
         return {"message": f"Order with id {order_id} does not exist"}, 404

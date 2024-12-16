@@ -34,11 +34,16 @@ def create_portfolio():
         if not stock:
             return {"message": f"Invalid stock_id: {stock_id}. Stock does not exist."}, 404
 
+        # Check for numeric and non zero value
+        number_of_units = body_data.get("number_of_units")
+        if not isinstance(number_of_units, int) or number_of_units <= 0:
+            return {"message": "Number of units must be a numeric value and greater than 0."}, 400
+
         # create portfolio instance
         new_portfolio = Portfolio(
-            number_of_units=body_data.get("number_of_units"),
+            number_of_units=number_of_units,
             investor_id=investor_id,
-            stock_id=investor_id
+            stock_id=stock_id
         )
         # add to the session
         db.session.add(new_portfolio)
@@ -51,6 +56,7 @@ def create_portfolio():
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
+        return {"message": "An unexpected error occurred."}, 500
 
 # Read all - /portfolios - GET
 @portfolios_bp.route("/", methods=["GET"])
@@ -101,19 +107,22 @@ def update_portfolio(portfolio_id):
                 return {"message": f"Invalid stock_id: {body_data['stock_id']}. Stock does not exist."}, 404
             portfolio.stock_id = body_data["stock_id"]
 
-            portfolio.number_of_units=body_data.get("number_of_units") or portfolio.number_of_units
+        if "number_of_units" in body_data:
+            number_of_units = body_data["number_of_units"]
+            if not isinstance(number_of_units, int) or number_of_units <= 0:
+                return {"message": "Number of units must be a numeric value and greater than 0."}, 400
+            portfolio.number_of_units = number_of_units
 
             # commit changes
             db.session.commit()
             # return updated data
             return portfolio_schema.dump(portfolio), 200
-        else:
-            # if portfolio doesn't exist
-            return {"message": f"Portfolio with id {portfolio_id} does not exist"}, 404
+
     except IntegrityError as err:
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
+        return {"message": "An unexpected error occurred."}, 500
 
 # Delete - /portfolios/id - DELETE
 @portfolios_bp.route("/<int:portfolio_id>", methods=["DELETE"])
@@ -126,7 +135,7 @@ def delete_portfolio(portfolio_id):
         db.session.delete(portfolio)
         db.session.commit()
         # return response
-        return {"message": f"Portfolio with id'{portfolio.id}' deleted successfully"}, 200
+        return {"message": f"Portfolio with id' {portfolio.id}' deleted successfully"}, 200
     else:
         # return error response
         return {"message": f"Portfolio with id {portfolio_id} does not exist"}, 404
