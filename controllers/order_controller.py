@@ -23,13 +23,13 @@ def create_order():
         # get data from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"messgae": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or invalid"}, 400
 
         # validate & parse trade_date
         trade_date = (
             date.fromisoformat(body_data.get("trade_date"))
             if body_data.get("trade_date")
-            else None
+            else date.today()
         )
         # validate and convert order_type enum
         try:
@@ -37,7 +37,7 @@ def create_order():
         except ValueError:
             return{"message": f"Invalid order type. Please use one of the following: {[e.value for e in OrderType]}"}, 400
 
-        # validate and convert order_status
+        # validate and convert order_status enum
         try:
             order_status = OrderStatus(body_data.get("order_status"))
         except ValueError:
@@ -55,15 +55,27 @@ def create_order():
         if not stock:
             return {"message": f"Invalid stock_id: {stock_id}. Stock does not exist."}, 404
 
+        # Check for numeric and non zero value
+        quantity = body_data.get("quantity")
+        if not isinstance(quantity, int) or quantity <=0:
+            return {"message": "Quantity must be a numeric value and greater than 0."}, 400
+
+        try:
+            net_amount = float(body_data.get("net_amount"))
+            if net_amount <= 0:
+                return {"message": "Net amount must be greater than 0."}, 400
+        except (ValueError, TypeError):
+            return {"message": "Net amount must be a numeric value."}, 400
+
         # create order instance
         new_order = Order(
             trade_date=trade_date,
             order_type=order_type,
-            quantity=body_data.get("quantity"),
-            net_amount=body_data.get("net_amount"),
+            quantity=quantity,
+            net_amount=net_amount,
             order_status=order_status,
             investor_id=investor_id,
-            stock_id=investor_id
+            stock_id=stock_id
         )
         # add to the session
         db.session.add(new_order)
@@ -106,9 +118,6 @@ def update_order(order_id):
         # find order with id to update
         stmt = db.select(Order).filter_by(id=order_id)
         order = db.session.scalar(stmt)
-        # if order id does not exist
-        if not order:
-            return {"message": f"Order with id {order_id} does not exist"}, 404
 
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
@@ -123,20 +132,20 @@ def update_order(order_id):
                 if "trade_date" in body_data
                 else order.trade_date
             )
-            # validate and update order_type enum
+        # validate and update order_type enum
         if "order_type" in body_data:
             try:
                 order.order_type = OrderType(body_data["order_type"])
             except ValueError:
                 return{"message": f"Invalid order type. Please use one of the following: {[e.value for e in OrderType]}"}, 400
 
-            # validate and update order_status
+        # validate and update order_status
         if "order_status" in body_data:
             try:
                 order.order_status = OrderStatus(body_data["order_status"])
             except ValueError:
                 return{"message": f"Invalid order status. Please use one of the following: {[e.value for e in OrderStatus]}"}, 400
-              # Validate investor_id if provided
+        # Validate investor_id if provided
         if "investor_id" in body_data:
             investor = db.session.get(Investor, body_data["investor_id"])
             if not investor:
@@ -150,8 +159,20 @@ def update_order(order_id):
                 return {"message": f"Invalid stock_id: {body_data['stock_id']}. Stock does not exist."}, 404
             order.stock_id = body_data["stock_id"]
 
-            order.quantity=body_data.get("quantity") or order.quantity
-            order.net_amount=body_data.get("net_amount") or order.net_amount
+        # Validate and update quantity
+        if "quantity" in body_data:
+            if not isinstance(body_data["quantity"], int) or body_data["quantity"] <= 0:
+                return {"message": "Quantity must be a numeric value and greater than 0."}, 400
+            order.quantity = body_data["quantity"]
+
+        # Validate and update net_amount
+        if "net_amount" in body_data:
+            try:
+                net_amount = float(body_data.get("net_amount"))
+                if net_amount <= 0:
+                    return {"message": "Net amount must be greater than 0."}, 400
+            except (ValueError, TypeError):
+                return {"message": "Net amount must be a numeric value."}, 400
 
             # commit changes
             db.session.commit()
@@ -162,6 +183,10 @@ def update_order(order_id):
             return {"message": f"Order with id {order_id} does not exist"}, 404
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+    except IntegrityError as err:
+        if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
+            return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
+        return {"message": "An unexpected error occurred."}, 500
 
 # Delete - /orders/id - DELETE
 @orders_bp.route("/<int:order_id>", methods=["DELETE"])
