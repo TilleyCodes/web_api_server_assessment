@@ -119,6 +119,10 @@ def update_order(order_id):
         stmt = db.select(Order).filter_by(id=order_id)
         order = db.session.scalar(stmt)
 
+        # if order id does not exist
+        if not order:
+            return {"message": f"Order with id {order_id} does not exist"}, 404
+
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
@@ -178,9 +182,7 @@ def update_order(order_id):
             db.session.commit()
             # return updated data
             return order_schema.dump(order), 200
-        else:
-            # if order doesn't exist
-            return {"message": f"Order with id {order_id} does not exist"}, 404
+
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
     except IntegrityError as err:
