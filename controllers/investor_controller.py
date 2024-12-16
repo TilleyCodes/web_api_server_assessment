@@ -48,10 +48,42 @@ def create_investor():
 # Read all - /investors - GET
 @investors_bp.route("/")
 def get_investors():
-    stmt = db.select(Investor)
-    investors_list = db.session.scalars(stmt)
+    stmt = db.select(Investor) # assigning stmt with base query to avoid repetition
+
+    f_name = request.args.get("f_name")
+    if f_name:
+        stmt =stmt.filter_by(f_name=f_name)
+
+    l_name = request.args.get("l_name")
+    if l_name:
+        stmt =stmt.filter_by(l_name=l_name)
+
+    email = request.args.get("email")
+    if email:
+        stmt =stmt.filter_by(email=email)
+
+    registration_date = request.args.get("registration_date")
+    if registration_date:
+        try: # check for invalid date format
+            date.fromisoformat(registration_date)
+            stmt =stmt.filter_by(Investor.registration_date==registration_date)
+        except ValueError:
+            return {"message": "Invalid date format. Please use YYYY-MM-DD."}, 400
+
+    account_balance = request.args.get("account_balance")
+    if account_balance:
+        try: #  account_balance must be numeric value
+            account_balance = float(account_balance)
+            stmt = stmt.filter(Investor.account_balance==account_balance)
+        except ValueError:
+            return {"message": "Account balance must be a numeric value and greater than 0."}, 400
+
+    stmt =stmt.order_by(Investor.id)
+    investors_list = db.session.scalars(stmt).all()
+    if not investors_list:
+        return {"message": "No investors found matching the provided filters."}, 404
     data = investors_schema.dump(investors_list)
-    return data
+    return data, 200
 
 # Read one - /investors/id - GET
 @investors_bp.route("/<int:investor_id>")
