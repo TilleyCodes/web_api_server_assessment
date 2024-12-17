@@ -97,7 +97,44 @@ def create_order():
 @orders_bp.route("/", methods=["GET"])
 def get_orders():
     stmt = db.select(Order)
-    orders_list = db.session.scalars(stmt)
+
+    investor_id = request.args.get("investor_id")
+    if investor_id:
+        try:
+            investor_id =int(investor_id) #validating investor id is a number and catching error
+            stmt =stmt.filter(Order.investor_id==investor_id)
+        except ValueError:
+            return {"message": "Investor ID must be a number."}, 400
+
+    stock_id = request.args.get("stock_id")
+    if stock_id:
+        try:
+            stock_id = int(stock_id) #validating istock id is a number and catching error
+            stmt =stmt.filter(Order.stock_id==stock_id)
+        except ValueError:
+            return {"message": "Stock ID must be a number."}, 400
+
+    order_type = request.args.get("order_type")
+    if order_type:
+        try:
+            valid_order_type = OrderType(order_type)  # check enum to validate order type
+            stmt = stmt.filter(Order.order_type == valid_order_type)
+        except ValueError:
+            valid_values = [e.value for e in OrderType]
+            return {"message": f"Invalid order_type. Valid values are: {valid_values}"}, 400
+
+    order_status = request.args.get("order_status")
+    if order_status:
+        try:
+            valid_order_status = OrderStatus(order_status)  # check enum to validate order status
+            stmt = stmt.filter(Order.order_status == valid_order_status)
+        except ValueError:
+            valid_values = [e.value for e in OrderStatus]
+            return {"message": f"Invalid order_status. Valid values are: {valid_values}"}, 400
+
+    orders_list = db.session.scalars(stmt).all()
+    if not orders_list:
+        return {"message": "No orders found with provided filters."}, 404
     data = orders_schema.dump(orders_list)
     return data, 200
 

@@ -81,7 +81,7 @@ def get_investors():
     stmt =stmt.order_by(Investor.id)
     investors_list = db.session.scalars(stmt).all()
     if not investors_list:
-        return {"message": "No investors found matching the provided filters."}, 404
+        return {"message": "No investors found with provided filters."}, 404
     data = investors_schema.dump(investors_list)
     return data, 200
 
