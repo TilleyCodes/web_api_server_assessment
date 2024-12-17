@@ -3,12 +3,13 @@
 ## Table Of Contents
 
 1. [Overview and Purpose](#overview-and-purpose)
-2. [Features and Functions](#features-and-functions)
-3. [Stystem Requirements](#system-requirements)
-4. [Installation](#installation)
-5. [Set Up](#set-up)
-6. [Ethical Impact of the Licenses](ethical-impact-of-the-licenses)
-7. [Database System](#database-system)
+2. [Entity Relationship Diagram ](#entity-relationship-diagram)
+3. [Features and Functions](#features-and-functions)
+4. [Stystem Requirements](#system-requirements)
+5. [Installation](#installation)
+6. [Set Up](#set-up)
+7. [Ethical Impact of the Licenses](ethical-impact-of-the-licenses)
+. [Database System](#database-system)
 
 ---
 
@@ -19,13 +20,56 @@ The purpose of this application is to allow the investors on the platform to man
 
 ---
 
+## Entity Relationship Diagram  
+
+![Investment Portfolio Management ERD](<API ERD.png>)  
+
+### Entities, Relationships and Foreign Keys 
+
+- Investor  
+    - one and only one investor can:  
+        - place zero or many orders.  
+        - have zero or many portfolios.  
+        - have zero or many watchlists.  
+        - have zero or many transactions.  
+
+- Stocks  
+    - one and only one stock can be:  
+        - bought or sold zero or many times in an order placement.    
+        - added zero or many times to the watchlists.    
+        - added zero or many times to the portfolios.    
+
+- Orders 
+    - one and only one order can be added to one and only one transaction.        
+        - investor_id Foreign Key.     
+        - stock_id Foreign Key.      
+
+- Transactions 
+    - one and only one transaction can be added to one and only one order.   
+    - zero or many transactions can have one and only one investor.    
+        - investor_id Foreign Key.         
+        - order_id Foreign Key.  
+
+-  Portfolio  
+    - zero or many portfolios can have one and only one investor.    
+    - zero or many portfolios can have one and only one stock.  
+        - investor_id Foreign Key.     
+        - stock_id Foreign Key.
+
+- Watchlists (junction between investors and stocks) 
+    - zero or many watchlists can have one or many investors and stocks.  
+        - investor_id Foreign Key.         
+        - stock_id Foreign Key.  
+
+---  
+
 ## Features and Functions
 
 - Trading and Transactions  
     - Place BUY and SELL orders for stocks.  
 	- Record all financial activities (deposits, withdrawals, buys, sells).  
 	- Store transaction details (date, type, amount, status) for history tracking.  
-- User Accounts and Profiles  
+- Investor Accounts and Profiles  
     - Create accounts with personal information (name, email).  
 	- View account registration date and current balance.  
 - Portfolios and Holdings  
