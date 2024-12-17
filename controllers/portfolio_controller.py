@@ -62,7 +62,25 @@ def create_portfolio():
 @portfolios_bp.route("/", methods=["GET"])
 def get_portfolios():
     stmt = db.select(Portfolio)
-    portfolios_list = db.session.scalars(stmt)
+
+    investor_id = request.args.get("investor_id")
+    if investor_id:
+        try:
+            investor_id =int(investor_id) #validating investor id is a number and catching error
+            stmt =stmt.filter(Portfolio.investor_id==investor_id)
+        except ValueError:
+            return {"message": "Investor ID must be a number."}, 400
+
+    stock_id = request.args.get("stock_id")
+    if stock_id:
+        try:
+            stock_id = int(stock_id) #validating istock id is a number and catching error
+            stmt =stmt.filter(Portfolio.stock_id==stock_id)
+        except ValueError:
+            return {"message": "Stock ID must be a number."}, 400
+    portfolios_list = db.session.scalars(stmt).all()
+    if not portfolios_list:
+        return {"message": "No orders found with provided filters."}, 404
     data = portfolios_schema.dump(portfolios_list)
     return data, 200
 
