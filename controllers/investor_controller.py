@@ -50,19 +50,19 @@ def create_investor():
 def get_investors():
     stmt = db.select(Investor) # assigning stmt with base query to avoid repetition
 
-    f_name = request.args.get("f_name")
+    f_name = request.args.get("f_name") #query parameter
     if f_name:
         stmt =stmt.filter_by(f_name=f_name)
 
-    l_name = request.args.get("l_name")
+    l_name = request.args.get("l_name") #query parameter
     if l_name:
         stmt =stmt.filter_by(l_name=l_name)
 
-    email = request.args.get("email")
+    email = request.args.get("email") #query parameter
     if email:
         stmt =stmt.filter_by(email=email)
 
-    registration_date = request.args.get("registration_date")
+    registration_date = request.args.get("registration_date") #query parameter
     if registration_date:
         try: # check for invalid date format
             date.fromisoformat(registration_date)
@@ -70,7 +70,7 @@ def get_investors():
         except ValueError:
             return {"message": "Invalid date format. Please use YYYY-MM-DD."}, 400
 
-    account_balance = request.args.get("account_balance")
+    account_balance = request.args.get("account_balance") #query parameter
     if account_balance:
         try: #  account_balance must be numeric value
             account_balance = float(account_balance)
