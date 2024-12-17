@@ -15,7 +15,7 @@
 ## Overview and Purpose
 
 This Investment Portfolio Management Web Application is designed to simplify the investment activities of it's users.  
-The purpose of this application is to allow the investors on the platform to manage their investment activities as well as execute trades,track their portfolio performance and monitor thier stocks of interest.    
+The purpose of this application is to allow the investors on the platform to manage their investment activities as well as execute trades, track their portfolio performance and monitor their stocks of interest.    
 
 ---
 
@@ -83,7 +83,7 @@ or,
 
     iib. activate environment for windows input:  
  ```bash
-    .\env\Scripts\activate
+    .\venv\Scripts\activate
   ```
 - this will activate virtual environment. You can then run the pip install command for the corresponding packages per below.    
 
@@ -204,7 +204,7 @@ Run the following command in a new terminal to create and seed the tables before
 
 3. Drop the tables: 
 ```bash
-    flask db seed
+    flask db drop
 ```     
 
 **Note:** If you do drop the tables, ensure to re-create and seed the tables again.  
