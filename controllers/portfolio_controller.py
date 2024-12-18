@@ -80,7 +80,7 @@ def get_portfolios():
             return {"message": "Stock ID must be a number."}, 400
     portfolios_list = db.session.scalars(stmt).all()
     if not portfolios_list:
-        return {"message": "No orders found with provided filters."}, 404
+        return {"message": "No portfolios found with provided filters."}, 404
     data = portfolios_schema.dump(portfolios_list)
     return data, 200
 
@@ -141,7 +141,7 @@ def update_portfolio(portfolio_id):
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
-        return {"message": "An unexpected error occurred."}, 500
+    return {"message": "An unexpected error occurred."}, 500
 
 # Delete - /portfolios/id - DELETE
 @portfolios_bp.route("/<int:portfolio_id>", methods=["DELETE"])

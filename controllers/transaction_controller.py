@@ -24,17 +24,25 @@ def create_transaction():
         if not body_data:
             return {"messgae": "Request body is missing or invalid"}, 400
 
-        # validate & parse trade_date
+        # validate & parse transaction_date
         transaction_date = (
             date.fromisoformat(body_data.get("transaction_date"))
             if body_data.get("transaction_date")
-            else None
+            else date.today()
         )
         # validate and convert transaction_type enum
         try:
             transaction_type = TransactionType(body_data.get("transaction_type"))
         except ValueError:
             return{"message": f"Invalid transaction type. Please use one of the following: {[e.value for e in TransactionType]}"}, 400
+
+        # Check for numeric and non zero value
+        try:
+            amount = float(body_data.get("amount"))
+            if amount <= 0:
+                return {"message": "Amount must be greater than 0."}, 400
+        except (ValueError, TypeError):
+            return {"message": "Amount must be a numeric value."}, 400
 
         # Check for valid investor_id
         investor_id = body_data.get("investor_id")
@@ -52,7 +60,7 @@ def create_transaction():
         new_transaction = Transaction(
             transaction_date=transaction_date,
             transaction_type=transaction_type,
-            amount=body_data.get("amount"),
+            amount=amount,
             investor_id=investor_id,
             order_id=order_id
         )
@@ -70,12 +78,41 @@ def create_transaction():
 
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+    return {"message": "An unexpected error occurred."}, 500
 
 # Read all - /transactions - GET
 @transactions_bp.route("/", methods=["GET"])
 def get_transactions():
     stmt = db.select(Transaction)
-    transactions_list = db.session.scalars(stmt)
+
+    investor_id = request.args.get("investor_id")
+    if investor_id:
+        try:
+            investor_id =int(investor_id) #validating investor id is a number and catching error
+            stmt =stmt.filter(Transaction.investor_id==investor_id)
+        except ValueError:
+            return {"message": "Investor ID must be a number."}, 400
+
+    order_id = request.args.get("order_id")
+    if order_id:
+        try:
+            order_id = int(order_id) #validating iorder id is a number and catching error
+            stmt =stmt.filter(Transaction.order_id==order_id)
+        except ValueError:
+            return {"message": "Order ID must be a number."}, 400
+
+    transaction_type = request.args.get("transaction_type")
+    if transaction_type:
+        try:
+            valid_transaction_type = TransactionType(transaction_type)  # check enum to validate transaction type
+            stmt = stmt.filter(Transaction.transaction_type == valid_transaction_type)
+        except ValueError:
+            valid_types = [e.value for e in TransactionType]
+            return {"message": f"Invalid transaction_type. Valid values are: {valid_types}"}, 400
+
+    transactions_list = db.session.scalars(stmt).all()
+    if not transactions_list:
+        return {"message": "No transactions found with provided filters."}, 404
     data = transactions_schema.dump(transactions_list)
     return data, 200
 
@@ -114,14 +151,23 @@ def update_transaction(transaction_id):
                 if "transaction_date" in body_data
                 else transaction.transaction_date
             )
-            # validate and update transaction_type enum
+        # validate and update transaction_type enum
         if "transaction_type" in body_data:
             try:
                 transaction.transaction_type = TransactionType(body_data["transaction_type"])
             except ValueError:
                 return{"message": f"Invalid transaction type. Please use one of the following: {[e.value for e in TransactionType]}"}, 400
 
-              # Validate investor_id if provided
+        # Validate and update amount
+        if "amount" in body_data:
+            try:
+                amount = float(body_data.get("amount"))
+                if amount <= 0:
+                    return {"message": "Net amount must be greater than 0."}, 400
+            except (ValueError, TypeError):
+                return {"message": "Net amount must be a numeric value."}, 400
+
+        # Validate investor_id if provided
         if "investor_id" in body_data:
             investor = db.session.get(Investor, body_data["investor_id"])
             if not investor:
@@ -134,17 +180,17 @@ def update_transaction(transaction_id):
             if not order:
                 return {"message": f"Invalid order_id: {body_data['stock_id']} does not exist."}, 404
             transaction.order_id = body_data["order_id"]
-            transaction.amount=body_data.get("amount") or transaction.amount
 
             # commit changes
             db.session.commit()
             # return updated data
             return transaction_schema.dump(order), 200
-        else:
-            # if order doesn't exist
-            return {"message": f"Transaction with id {transaction_id} does not exist"}, 404
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+    except IntegrityError as err:
+        if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
+            return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
+    return {"message": "An unexpected error occurred."}, 500
 
 # Delete - /transactions/id - DELETE
 @transactions_bp.route("/<int:transaction_id>", methods=["DELETE"])
