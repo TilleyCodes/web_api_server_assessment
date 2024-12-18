@@ -68,6 +68,7 @@ def get_stocks():
         except ValueError:
             return {"message": "Stock price must be a numeric value and greater than 0."}, 400
 
+    stmt =stmt.order_by(Stock.id)
     stocks_list = db.session.scalars(stmt).all()
     if not stocks_list:
         return {"message": "No stocks found with provided filters."}, 404

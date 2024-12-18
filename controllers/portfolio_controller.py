@@ -78,6 +78,8 @@ def get_portfolios():
             stmt =stmt.filter(Portfolio.stock_id==stock_id)
         except ValueError:
             return {"message": "Stock ID must be a number."}, 400
+
+    stmt =stmt.order_by(Portfolio.id)
     portfolios_list = db.session.scalars(stmt).all()
     if not portfolios_list:
         return {"message": "No portfolios found with provided filters."}, 404

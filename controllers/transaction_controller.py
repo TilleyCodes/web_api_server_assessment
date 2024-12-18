@@ -110,6 +110,7 @@ def get_transactions():
             valid_types = [e.value for e in TransactionType]
             return {"message": f"Invalid transaction_type. Valid values are: {valid_types}"}, 400
 
+    stmt =stmt.order_by(Transaction.id)
     transactions_list = db.session.scalars(stmt).all()
     if not transactions_list:
         return {"message": "No transactions found with provided filters."}, 404

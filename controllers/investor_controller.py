@@ -67,7 +67,7 @@ def get_investors():
     if registration_date:
         try: # check for invalid date format
             date.fromisoformat(registration_date)
-            stmt =stmt.filter_by(Investor.registration_date==registration_date)
+            stmt =stmt.filter(Investor.registration_date==registration_date)
         except ValueError:
             return {"message": "Invalid date format. Please use YYYY-MM-DD."}, 400
 

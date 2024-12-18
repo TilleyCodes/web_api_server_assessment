@@ -132,6 +132,7 @@ def get_orders():
             valid_values = [e.value for e in OrderStatus]
             return {"message": f"Invalid order_status. Valid values are: {valid_values}"}, 400
 
+    stmt =stmt.order_by(Order.id)
     orders_list = db.session.scalars(stmt).all()
     if not orders_list:
         return {"message": "No orders found with provided filters."}, 404
