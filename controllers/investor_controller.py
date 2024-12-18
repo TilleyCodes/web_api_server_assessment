@@ -106,6 +106,8 @@ def update_investor(investor_id):
         investor = db.session.scalar(stmt)
         # get the data to be updated from the request body
         body_data = request.get_json()
+        if not body_data:
+            return {"messgae": "Request body is missing or invalid"}, 400
         # if investor exists
         if investor:
             # update the investor data field
