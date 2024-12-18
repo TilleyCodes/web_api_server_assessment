@@ -1,3 +1,4 @@
+# pylint: disable=line-too-long
 # pylint: disable=missing-module-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
@@ -13,8 +14,9 @@ from enums import TransactionType
 
 class TransactionSchema(ma.Schema):
     ordered=True
+    investor = fields.Nested("InvestorSchema", only=["f_name", "l_name", "email"])
     class Meta:
-        fields = ("id", "transaction_date", "transaction_type", "amount", "investor_id", "order_id")
+        fields = ("id", "transaction_date", "transaction_type", "amount", "investor_id", "investor", "order_id")
 
     @post_dump
     def serialize_enum(self, data, **kwargs):
