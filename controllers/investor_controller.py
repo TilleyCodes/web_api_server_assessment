@@ -44,6 +44,7 @@ def create_investor():
             return {"message": "Email address already in use"}, 409
     except ValueError: # invalide date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
+    return {"message": "An unexpected error occurred."}, 500
 
 # Read all - /investors - GET
 @investors_bp.route("/")

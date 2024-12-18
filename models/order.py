@@ -15,8 +15,8 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     trade_date = db.Column(db.Date, nullable=False, default=date.today)
     order_type = db.Column(db.Enum(OrderType), nullable=False) # this has enumerate
-    quantity = db.Column(db.Integer, nullable=False)
-    net_amount = db.Column(db.Numeric(precision=15, scale=2),nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, check=db.CheckConstraint("quantity >= 0"))
+    net_amount = db.Column(db.Numeric(precision=15, scale=2),nullable=False, check=db.CheckConstraint("net_amount >= 0"))
     order_status = db.Column(db.Enum(OrderStatus), nullable=False) # this has enumerate
     investor_id = db.Column(db.Integer, db.ForeignKey("investors.id"), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey("stocks.id"), nullable=False)

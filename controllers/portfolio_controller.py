@@ -125,6 +125,7 @@ def update_portfolio(portfolio_id):
                 return {"message": f"Invalid stock_id: {body_data['stock_id']}. Stock does not exist."}, 404
             portfolio.stock_id = body_data["stock_id"]
 
+        # Validate number_of_units non zero and numeric value
         if "number_of_units" in body_data:
             number_of_units = body_data["number_of_units"]
             if not isinstance(number_of_units, int) or number_of_units <= 0:

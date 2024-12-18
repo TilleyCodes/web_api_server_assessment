@@ -19,12 +19,23 @@ def create_stock():
     try:
         # get information from the request body
         body_data = request.get_json()
+        if not body_data:
+            return {"message": "Request body is missing or invalid"}, 400
+
+        # Check for numeric and non zero/negative value
+        stock_price = body_data.get("stock_price")
+        try:
+            stock_price = float(stock_price)
+            if stock_price < 0:
+                return {"message": "Stock price must be a non-negative value."}, 400
+        except (ValueError, TypeError):
+            return {"message": "Stock price must be a numeric value."}, 400
 
         # create stock instance
         new_stock = Stock(
             stock_name=body_data.get("stock_name"),
             ticker=body_data.get("ticker"),
-            stock_price=body_data.get("stock_price"),
+            stock_price=stock_price,
         )
 
         db.session.add(new_stock)
@@ -38,12 +49,28 @@ def create_stock():
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # unique constraint violation
             return {"message": f"This stock '{body_data.get('stock_name')}' or ticker '{body_data.get('ticker')}' already exists"}, 409
+        return {"message": "An unexpected error occurred."}, 500
 
 # Read all - /stocks - GET
 @stocks_bp.route("/")
 def get_stocks():
     stmt = db.select(Stock)
-    stocks_list = db.session.scalars(stmt)
+
+    ticker = request.args.get("ticker") #query parameter
+    if ticker:
+        stmt = stmt.filter(Stock.ticker.ilike(f"%{ticker}%")) # For case insensitive filtering
+
+    price = request.args.get("price") #query parameter
+    if price:
+        try: #  stock_price must be numeric value
+            price = float(price)
+            stmt = stmt.filter(Stock.stock_price==price)
+        except ValueError:
+            return {"message": "Stock price must be a numeric value and greater than 0."}, 400
+
+    stocks_list = db.session.scalars(stmt).all()
+    if not stocks_list:
+        return {"message": "No stocks found with provided filters."}, 404
     data = stocks_schema.dump(stocks_list)
     return data
 
@@ -64,21 +91,29 @@ def update_stock(stock_id):
         # find stock with id to update
         stmt = db.select(Stock).filter_by(id=stock_id)
         stock = db.session.scalar(stmt)
+        if not stock:
+            return {"message": f"Stock with id {stock_id} does not exist."}, 404
         # get the data to be updated from the request body
         body_data = request.get_json()
+        if not body_data:
+            return {"message": "Request body is missing or invalid"}, 400
         # if stock exists
-        if stock:
-            # update the stock data field
-            stock.stock_name=body_data.get("stock_name") or stock.stock_name
-            stock.ticker=body_data.get("ticker") or stock.ticker
-            stock.stock_price=body_data.get("stock_price") or stock.stock_price
-            # commit changes
-            db.session.commit()
-            # return updated data
-            return stock_schema.dump(stock), 200
-        else:
-            # if stock doesn't exist
-            return {"message": f"Stock with id {stock_id} does not exist"}, 404
+        if "stock_price" in body_data:
+            try:
+                stock_price = float(body_data["stock_price"])
+                if stock_price < 0:
+                    return {"message": "Stock price must be a non-negative value."}, 400
+                stock.stock_price = stock_price
+            except (ValueError, TypeError):
+                return {"message": "Stock price must be a numeric value."}, 400
+
+        # update the stock data field
+        stock.stock_name=body_data.get("stock_name") or stock.stock_name
+        stock.ticker=body_data.get("ticker") or stock.ticker
+        # commit changes
+        db.session.commit()
+        # return updated data
+        return stock_schema.dump(stock), 200
 
 # Delete - /stocks/id - DELETE
 @stocks_bp.route("/<int:stock_id>", methods=["DELETE"])
