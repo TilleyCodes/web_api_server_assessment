@@ -2,14 +2,21 @@
 
 ## Table Of Contents
 
-1. [Overview and Purpose](#overview-and-purpose)
-2. [Entity Relationship Diagram ](#entity-relationship-diagram)
-3. [Features and Functions](#features-and-functions)
-4. [Stystem Requirements](#system-requirements)
-5. [Installation](#installation)
-6. [Set Up](#set-up)
-7. [Ethical Impact of the Licenses](ethical-impact-of-the-licenses)
-8. [Database System](#database-system)
+1. [Overview and Purpose](#overview-and-purpose)  
+2. [Entity Relationship Diagram ](#entity-relationship-diagram)  
+    - [Entities, Relationships, and Foreign Keys](#entities-relationships-foreign-keys)  
+3. [Features and Functions](#features-and-functions)  
+4. [Stsystem Requirements](#system-requirements)  
+5. [Installation](#installation)  
+    - [Packages](#packages)  
+6. [Set Up](#set-up)  
+    - [PostgreSQL](#postgreSQL)  
+    - [zsh](#zsh)  
+7. [Deployment](#deployment)    
+8. [Testing](#tesing)    
+    - [API Endpoints](#api-endpoints)  
+9. [Ethical Impact of the Licenses](#ethical-impact-of-the-licenses)  
+10. [Database System](#database-system)  
 
 ---
 
@@ -22,9 +29,9 @@ The purpose of this application is to allow the investors on the platform to man
 
 ## Entity Relationship Diagram  
 
-![Investment Portfolio Management ERD](<API ERD.png>)  
+![Investment Portfolio Management ERD](<images/API ERD.png>)
 
-### Entities, Relationships and Foreign Keys 
+### Entities, Relationships, and Foreign Keys 
 
 - Investor  
     - one and only one investor can:  
@@ -105,12 +112,13 @@ The purpose of this application is to allow the investors on the platform to man
 
 1. Please ensure to downlod the latest [Python3](https://realpython.com/installing-python/)
 2. Install [Terminal for Windows](https://medium.com/@bonguides25/how-to-install-and-update-windows-terminal-in-windows-10-11-b85361b1aa07#:~:text=The%20first%20and%20easiest%20way,minutes%20to%20download%20and%20install.), or [Terminal for Mac](https://medium.com/@latusikl/the-ultimate-setup-for-macos-terminal-7fd340f58366)
-3. Optional download: [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) is another terminal that can be used to run the applciation
-4. Clone from repository to local machine with the following command in terminal:
+3. Optional download: [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) is another terminal that can be used to run the applciation  
+4. Download [Insomia](https://insomnia.rest/download) for testing API  
+5. Clone from repository to local machine with the following command in terminal:
 ```bash
 git clone https://github.com/TilleyCodes/web_api_server_assessment
 ```
-5. **Virtual Environment Set Up:** Dependant packages are installed through the terminal virtual environment for dependancy isolation and system python protection.  
+6. **Virtual Environment Set Up:** Dependant packages are installed through the terminal virtual environment for dependancy isolation and system python protection.  
     Follow these steps in terminal **before** installing the dependant packages:  
     i. enter virtual environment 
 ```bash
@@ -137,7 +145,7 @@ or,
 ```  
 - this will exit out of the virtual environment   
 
-6. Install the depandent packages as listed in requirements.txt in bulk with the following command or skip this step if you prefer to install the packages separately - follow the commands under packages:  
+7. Install the depandent packages as listed in requirements.txt in bulk with the following command or skip this step if you prefer to install the packages separately - follow the commands under packages:  
 ```bash
     pip install -r requirements.txt
 ``` 
@@ -215,9 +223,9 @@ List of required packages are under requirements.txt file and can be used to bul
 ### PostgreSQL  
 
 1. Run the following command in terminal to enter into the postrgreSQL repol environment:  
-   ```bash
-   psql
-   ```    
+```bash
+    psql
+```    
 
 2. Create a database:
 ```sql
@@ -267,11 +275,142 @@ Run the following command in a new terminal to create and seed the tables before
 
 ---  
 
-## 
+## Deployment    
 
-## License   
+The API was deployed using Render: [https://tilley-investment-portfolio-web-api.onrender.com]   
 
-Investment Portfolio Management Web API is released under MIT License. Please see LICENSE_ file for more details.
+---
+
+## Testing    
+
+Insomia will be used to test the CRUD operations on all enties for the Investment Portfolio Managemnt WEB API. Using the default http://locoalhost:5000 as the base URL.       
+Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.  
+
+### API Endpoints  
+
+Methods:
+Create = POST
+Read = GET
+Update = PUT / PATCH
+Delete = DELETE
+
+#### investors entity
+
+- Retrieve all investors:   
+    - http://localhost:5000/investors  
+- Retrieve a single investor:     
+    - http://localhost:5000/investors/<<investor_id>>  
+- Retrieve an investor by f_name:   
+    - http://localhost:5000/investors?f_name=<<name>>    
+- Retrieve an investor by registration_date:   
+    - http://localhost:5000/investors?registration_date=<<2024-05-08>> 
+- Retrieve an investor by account_balance:   
+    - http://localhost:5000/investors?account_balance=<<account_balance>>    
+- CREATE investor:   
+    - http://localhost:5000/investors  
+- Update investor:   
+    - http://localhost:5000/investors/<<investor_id>>  
+- Delete investor:    
+    - http://localhost:5000/investors/<<investor_id>>  
+
+#### stocks entity  
+
+- Retrieve all stocks:   
+    - http://localhost:5000/stocks  
+- Retrieve a single stock:     
+    - http://localhost:5000/stocks/<<stock_id>>  
+- Retrieve a stock by ticker:   
+    - http://localhost:5000/stocks?ticker=<<ticker>>    
+- Retrieve a stock by price:   
+    - http://localhost:5000/stocks?price=<<price>> 
+- Retrieve a stock by account_balance:   
+    - http://localhost:5000/stocks?account_balance=<<account_balance>>    
+- CREATE stock:   
+    - http://localhost:5000/stocks  
+- Update stock:   
+    - http://localhost:5000/stocks/<<stock_id>>  
+- Delete stock:    
+    - http://localhost:5000/stocks/<<stock_id>>  
+
+#### orders entity  
+
+- Retrieve all orders:   
+    - http://localhost:5000/orders  
+- Retrieve a single order:     
+    - http://localhost:5000/orders/<<order_id>>  
+- Retrieve an order by order_type:   
+    - http://localhost:5000/orders?order_type=<<order_type>>    
+- Retrieve an order by order_status:   
+    - http://localhost:5000/orders?order_status=<<order_status>> 
+- Retrieve an order by investor_id:   
+    - http://localhost:5000/orders?investor_id=<<investor_id>> 
+- Retrieve an order by stock_id:   
+    - http://localhost:5000/orders?stock_id=<<stock_id>>      
+- CREATE order:   
+    - http://localhost:5000/orders  
+- Update order:   
+    - http://localhost:5000/orders/<<order_id>>  
+- Delete order:    
+    - http://localhost:5000/orders/<<order_id>> 
+
+#### transactions entity  
+
+- Retrieve all transactions:   
+    - http://localhost:5000/transactions  
+- Retrieve a single transaction:     
+    - http://localhost:5000/transactions/<<transaction_id>>  
+- Retrieve a transaction by transaction_type:   
+    - http://localhost:5000/transactions?transaction_type=<<transaction_type>>    
+- Retrieve a transaction by investor_id:   
+    - http://localhost:5000/transactions?investor_id=<<investor_id>> 
+- Retrieve a transaction by order_id:   
+    - http://localhost:5000/transactions?order_id=<<order_id>>      
+- CREATE transaction:   
+    - http://localhost:5000/transactions  
+- Update transaction:   
+    - http://localhost:5000/transactions/<<transaction_id>>  
+- Delete transaction:    
+    - http://localhost:5000/transactions/<<transaction_id>> 
+
+#### portfolios entity  
+
+- Retrieve all portfolios:   
+    - http://localhost:5000/portfolios  
+- Retrieve a single portfolio:     
+    - http://localhost:5000/portfolios/<<portfolio_id>>     
+- Retrieve a portfolio by investor_id:   
+    - http://localhost:5000/portfolios?investor_id=<<investor_id>> 
+- Retrieve a portfolio by stock_id:   
+    - http://localhost:5000/portfolios?stock_id=<<stock_id>>      
+- CREATE portfolio:   
+    - http://localhost:5000/portfolios  
+- Update portfolio:   
+    - http://localhost:5000/portfolios/<<portfolio_id>>  
+- Delete portfolio:    
+    - http://localhost:5000/portfolios/<<portfolio_id>> 
+
+#### watchlists entity
+ 
+- Retrieve all watchlists:   
+    - http://localhost:5000/watchlists  
+- Retrieve a single watchlist:     
+    - http://localhost:5000/watchlists/<<watchlist_id>>     
+- Retrieve a watchlist by investor_id:   
+    - http://localhost:5000/watchlists?investor_id=<<investor_id>> 
+- Retrieve a watchlist by stock_id:   
+    - http://localhost:5000/watchlists?stock_id=<<stock_id>>      
+- CREATE watchlist:   
+    - http://localhost:5000/watchlists  
+- Update watchlist:   
+    - http://localhost:5000/watchlists/<<watchlist_id>>  
+- Delete watchlist:    
+    - http://localhost:5000/watchlists/<<watchlist_id>> 
+
+---
+
+## License        
+
+Investment Portfolio Management Web API is released under MIT License. Please see [LICENSE](https://github.com/TilleyCodes/web_api_server_assessment/blob/main/LICENSE) for more details.
 ---
 
 ## Database System
@@ -308,68 +447,4 @@ Investment Portfolio Management Web API is released under MIT License. Please se
 ---  
 
 ## Application Help
-
-Open the terminal and run the application.  
-(Ensure the set-up and installation steps have been completed).  
-
-- Check python version by inputing in command line.  
-```bash
-python --version
-``` 
-or 
-```bash
-python3 --version
-```  
-- To run the application, depending on your system and set-up, you may use <u>python</u> or <u>python3</u> and the file name. In this case main.py  
-```bash
-python main.py
-``` 
-or 
-```bash
-python3 main.py
-```  
-
-You will see a welcome message and a list of selections below.
-
-Simply enter the number corresponding to your selection.  
-
-![screenshot of app main page](screenshots/app_main_page.png)
-
-- ```Enter 1 to convert currencies using live FX rate.```
-    - ```Please enter the amount you wish to convert:``` *This needs to be a numerical value.*
-    - ```Please enter the currency code you wish to convert from:``` *The currency code is a 3 letter code representing the currency of choice, you are allowed 3 attempts to enter the correct currency code (if unsure you can view the currency code by entering 4 in the main menu).*
-    - ```Please enter the currency code you wish to convert to:``` *The currency code is a 3 letter code representing the currency of choice you are allowed 3 attempts to enter the correct currency code (if unsure you can view the currency code by entering 4 in the main menu).*
-    - ```Enter a short description to save a history or enter to exit:``` *If you want to save a history of this conversion, enter a short description otherwise enter with no description will not save.*
-
-![screenshot for currency code error](screenshots/convert_with_live_rate.png)
-    
-- ```Enter 2 to convert currencies using your personalised FX rate.```
-    - ```Please enter the FX rate you received during your exchange:``` *This is the FX rate given when you the the exchange. You are allowed 3 attempts to enter the a numerical value and cannot be zero*
-    - ```Please enter the value you wish to convert:``` *This is the monetary value. You are allowed 3 attempts to enter the a numerical value and cannot be zero*
-    - ```Do you want this value "x" converted to your base currency? Enter Y or N:``` *to assist with the calculation, enter Y if this is to be converted back to your base currency, (if the value you had input in the above line is the foreign value) otherwise enter N.*
-
-![screenshot for converting with personalised FX rate](screenshots/convert_with_personal_rate.png)
-
-- ```Enter 3 to calculate the FX rate.```
-    - ```Please enter the from value to calculate the FX rate:``` *This is the base monetary value. You are allowed 3 attempts to enter the a numerical value and cannot be zero*
-    - ```Please enter the to value to calculate the FX rate:``` *This is the foreign monetary value. You are allowed 3 attempts to enter the a numerical value and cannot be zero*
-
-![screenshot for calculating FX rate](screenshots/calculate_fx_rate.png)
-
-- ```Enter 4 to view the currency code list.```
-    - *By entering 4, the Currency Code table will automatically populate.*
-
-![screenshot currency code list](screenshots/currency_code_list.png)
-
-- ```Enter 5 to view conversion history.```
-    - *By entering 5, the conversion history list will appear if available.*
-
-![screenshot to view conversion history](screenshots/view_conversion_history.png)
-
-- ```Enter 6 to exit.```
-    - *By entering 6, you will exit the application and a farewell message will appear.*
-
-![screenshot for exit application](screenshots/exit_app.png)
-
----
 
