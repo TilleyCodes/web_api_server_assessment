@@ -9,7 +9,7 @@
 5. [Installation](#installation)
 6. [Set Up](#set-up)
 7. [Ethical Impact of the Licenses](ethical-impact-of-the-licenses)
-. [Database System](#database-system)
+8. [Database System](#database-system)
 
 ---
 
@@ -194,12 +194,19 @@ List of required packages are under requirements.txt file and can be used to bul
     pip install psycopg2-binary
 ```  
 
-- python-dotenv==1.0.1 - This package allows users to store key-value pairs from a ".env" file and sets them as environmental variables, allowing the storage of sensitive data that can be excluded from deployment to the public.  
+- python-dotenv==1.0.1 - this package allows users to store key-value pairs from a ".env" file and sets them as environmental variables, allowing the storage of sensitive data that can be excluded from deployment to the public.  
     - license: BSD License (BSD-3-Clause)  
     - copywrite 2014 Saurabh Kumar (python-dotenv), 2013 Ted Tieken (django-dotenv-rw), 2013 Jacob Kaplan-Moss (django-dotenv)  
 ```bash
     pip install python-dotenv
-```  
+```    
+
+- gunicorn==23.0.0 - a Python HTTP server for WSGI application.  
+    - license: [MIT License (MIT)](https://github.com/benoitc/gunicorn/blob/master/LICENSE)    
+    - copywrite 2009-2024 (c) Benoît Chesneau, 2009-2015 (c) Paul J. Davis  
+```bash
+    pip install gunicorn
+```   
 
 ---  
 
@@ -229,7 +236,7 @@ List of required packages are under requirements.txt file and can be used to bul
 
 5. Create .env file and add to DATABASE_URI with the following (replace user name and password per set up):
 ```bash
-    DATABASE_URI=postgresql://<username>:<password>@localhost:5432/web_api_db
+    DATABASE_URI=postgresql://<username>:<password>@localhost:<port_number>/web_api_db
 ```
   
 ### zsh  
@@ -258,37 +265,13 @@ Run the following command in a new terminal to create and seed the tables before
     flask run
 ```     
 
-**** Need to update the insomia and render part****
-
 ---  
 
-## Ethical Impact of the Licenses
+## 
 
-### MIT License 
+## License   
 
-The MIT License is a permissive license that allows users to freely use, modify, distribute, and sublicense the software with minimal restrictions. The only condition is to include the original copyright notice and license terms in any distribution.
-
-- Promotes freedom and flexibility for developers and businesses, encouraging innovation and wide adoption.  
-- Ensures minimal barriers for commercial use, which can support economic growth.  
-- Does not enforce ethical constraints or obligations on how the software is used, which might allow it to be utilised in ways that the original developers might ethically oppose.  
-
-
-### GNU Lesser General Public License
-
-The LGPL is a more permissive version of the GNU General Public License (GPL). It allows linking to proprietary software without requiring the proprietary code to also be open-sourced, but modifications to the LGPL-covered code must remain open-source.
-
-- Balances between the freedom to use software in proprietary systems and the commitment to open-source principles by requiring contributions back to the open-source community for modifications.
-- Promotes collaborative development and prevents proprietary monopolisation of core libraries, which supports fairness and equity in software use.
-- May not go far enough in ensuring all derived works remain open-source.  
-
-### BSD License (BSD-3-Clause)
-
-The BSD License is a permissive and allows users to freely use, modify, and redistribute the software.    
-  
-- Encourages wide adoption and reuse of code by placing few restrictions.
-- Supports both open-source and proprietary development, facilitating economic opportunities and innovation.  
-- Lacks ethical guardrails on how the software might be used, meaning it could be applied in contexts or for purposes that the original developers might not support.    
-
+Investment Portfolio Management Web API is released under MIT License. Please see LICENSE_ file for more details.
 ---
 
 ## Database System
