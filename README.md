@@ -32,6 +32,12 @@ The purpose of this application is to allow the investors on the platform to man
 
 ![Investment Portfolio Management ERD](<images/API ERD.png>)
 
+#### Legend
+
+![One and only One](<images/One and only One.png>) - One and only One    
+![One to Many](<images/One to Many.png>) - One to many  
+![Zero to Many](<images/Zero to Many.png>) - Zero to Many  
+
 ### Entities, Relationships, and Foreign Keys 
 
 - Investor  
