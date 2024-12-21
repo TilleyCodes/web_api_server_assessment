@@ -6,14 +6,15 @@
 2. [Entity Relationship Diagram ](#entity-relationship-diagram)  
     - [Entities, Relationships, and Foreign Keys](#entities-relationships-foreign-keys)  
 3. [Features and Functions](#features-and-functions)  
-4. [Stsystem Requirements](#system-requirements)  
+4. [System Requirements](#system-requirements)  
 5. [Installation](#installation)  
+    - [Virtual Environment Set Up](#virtual-environment-set-up)
     - [Packages](#packages)  
 6. [Set Up](#set-up)  
     - [PostgreSQL](#postgreSQL)  
     - [zsh](#zsh)  
 7. [Deployment](#deployment)    
-8. [Testing](#tesing)    
+8. [Testing](#testing)    
     - [API Endpoints](#api-endpoints)  
 9. [Ethical Impact of the Licenses](#ethical-impact-of-the-licenses)  
 10. [Database System](#database-system)  
@@ -22,7 +23,7 @@
 
 ## Overview and Purpose
 
-This Investment Portfolio Management Web Application is designed to simplify the investment activities of it's users.  
+This Investment Portfolio Management Web Application is designed to simplify the investment activities of its users.  
 The purpose of this application is to allow the investors on the platform to manage their investment activities as well as execute trades, track their portfolio performance and monitor their stocks of interest.    
 
 ---
@@ -72,20 +73,20 @@ The purpose of this application is to allow the investors on the platform to man
 
 ## Features and Functions
 
-- Trading and Transactions  
+- Trading and Transactions:  
     - Place BUY and SELL orders for stocks.  
 	- Record all financial activities (deposits, withdrawals, buys, sells).  
 	- Store transaction details (date, type, amount, status) for history tracking.  
-- Investor Accounts and Profiles  
+- Investor Accounts and Profiles:  
     - Create accounts with personal information (name, email).  
 	- View account registration date and current balance.  
-- Portfolios and Holdings  
+- Portfolios and Holdings:  
 	- Manage portfolios with specific stock holdings and units.  
 	- Track portfolio performance and included stocks.  
-- Watchlists  
+- Watchlists:  
 	- Create watchlists to monitor stocks of interest.  
-	- Keep a record of stocks invetors are tracking.  
-- Stock Information  
+	- Keep a record of stocks investors are tracking.  
+- Stock Information:  
 	- Access stock details (name, ticker, market price).    
 	- View information about stocks in portfolios or watchlists.     
 
@@ -110,7 +111,7 @@ The purpose of this application is to allow the investors on the platform to man
 
 ## Installation
 
-1. Please ensure to downlod the latest [Python3](https://realpython.com/installing-python/)
+1. Please ensure to download the latest [Python3](https://realpython.com/installing-python/)
 2. Install [Terminal for Windows](https://medium.com/@bonguides25/how-to-install-and-update-windows-terminal-in-windows-10-11-b85361b1aa07#:~:text=The%20first%20and%20easiest%20way,minutes%20to%20download%20and%20install.), or [Terminal for Mac](https://medium.com/@latusikl/the-ultimate-setup-for-macos-terminal-7fd340f58366)
 3. Optional download: [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) is another terminal that can be used to run the applciation  
 4. Download [Insomia](https://insomnia.rest/download) for testing API  
@@ -118,7 +119,7 @@ The purpose of this application is to allow the investors on the platform to man
 ```bash
 git clone https://github.com/TilleyCodes/web_api_server_assessment
 ```
-6. **Virtual Environment Set Up:** Dependant packages are installed through the terminal virtual environment for dependancy isolation and system python protection.  
+6. **Virtual Environment Set Up:** Dependant packages are installed through the terminal virtual environment for dependency isolation and system python protection.  
     Follow these steps in terminal **before** installing the dependant packages:  
     i. enter virtual environment 
 ```bash
@@ -145,7 +146,7 @@ or,
 ```  
 - this will exit out of the virtual environment   
 
-7. Install the depandent packages as listed in requirements.txt in bulk with the following command or skip this step if you prefer to install the packages separately - follow the commands under packages:  
+7. Install the dependent packages as listed in requirements.txt in bulk with the following command or skip this step if you prefer to install the packages separately - follow the commands under packages:  
 ```bash
     pip install -r requirements.txt
 ``` 
@@ -222,7 +223,7 @@ List of required packages are under requirements.txt file and can be used to bul
 
 ### PostgreSQL  
 
-1. Run the following command in terminal to enter into the postrgreSQL repol environment:  
+1. Run the following command in terminal to enter into the postrgreSQL repl environment:  
 ```bash
     psql
 ```    
@@ -297,21 +298,21 @@ Delete = DELETE
 #### investors entity
 
 - Retrieve all investors:   
-    - http://localhost:5000/investors  
+    - GET /investors  
 - Retrieve a single investor:     
-    - http://localhost:5000/investors/<<investor_id>>  
+    - GET /investors/<investor_id>  
 - Retrieve an investor by f_name:   
-    - http://localhost:5000/investors?f_name=<<name>>    
+    - GET /investors?f_name=<name>    
 - Retrieve an investor by registration_date:   
-    - http://localhost:5000/investors?registration_date=<<2024-05-08>> 
+    - GET /investors?registration_date=<YYYY-MM-DD> 
 - Retrieve an investor by account_balance:   
-    - http://localhost:5000/investors?account_balance=<<account_balance>>    
+    - GET /investors?account_balance=<account_balance>    
 - CREATE investor:   
-    - http://localhost:5000/investors  
+    - POST /investors  
 - Update investor:   
-    - http://localhost:5000/investors/<<investor_id>>  
+    - PATCH /investors/<investor_id>  
 - Delete investor:    
-    - http://localhost:5000/investors/<<investor_id>>  
+    - DELETE /investors/<investor_id>  
 
 #### stocks entity  
 
