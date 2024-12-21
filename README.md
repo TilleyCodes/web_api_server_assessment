@@ -284,8 +284,14 @@ The API was deployed using Render: [https://tilley-investment-portfolio-web-api.
 
 ## Testing    
 
-Insomia will be used to test the CRUD operations on all enties for the Investment Portfolio Managemnt WEB API. Using the default http://locoalhost:5000 as the base URL.       
-Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.  
+Insomia will be used to test the CRUD operations on all enties for the Investment Portfolio Managemnt WEB API. Using the default http://locoalhost:5000 as the base URL.         
+Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.    
+
+Note: If using database in Neon, by sure to update `DATABASE_URI=`. Also Gunicorn default URL localhost port number is 8000 eg. http://locoalhost:8000  
+Start the development server ising gunicorn:   
+```bash
+    gunicorn 'main:create_app()'
+```  
 
 ### API Endpoints    
 
@@ -381,6 +387,10 @@ Example: Create order with output.
 - Delete transaction:    
     - Method:DELETE `/transactions/<transaction_id>` 
 
+Example: Update transaction with output.
+
+![Update transaction](<images/Update transaction.png>)
+
 #### portfolios entity  
 
 - Retrieve all portfolios:   
@@ -397,6 +407,10 @@ Example: Create order with output.
     - Method:PATCH `/portfolios/<portfolio_id>`  
 - Delete portfolio:    
     - Method:DELETE `/portfolios/<portfolio_id>` 
+
+Example: Delete portfolio with output.  
+
+![Delete portfolio](<images/Delete Portfolio.png>)  
 
 #### watchlists entity
  
@@ -415,6 +429,10 @@ Example: Create order with output.
 - Delete watchlist:    
     - Method:DELETE `/watchlists/<watchlist_id>` 
 
+Example: Get all watchlists using Gunicorn.  
+
+![Get all watchlists using Gunicorn](<images/Get all watchlist using Gunicorn.png>)
+  
 ---
 
 ## License        

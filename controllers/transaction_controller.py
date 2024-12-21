@@ -204,7 +204,7 @@ def delete_order(transaction_id):
         db.session.delete(transaction)
         db.session.commit()
         # return response
-        return {"message": f"Transaction with id'{transaction.id}' deleted successfully"}, 200
+        return {"message": f"Transaction with id '{transaction.id}' deleted successfully"}, 200
     else:
         # return error response
         return {"message": f"Transaction with id {transaction_id} does not exist"}, 404
