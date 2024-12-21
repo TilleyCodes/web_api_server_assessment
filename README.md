@@ -448,6 +448,7 @@ Example: Get all watchlists using Gunicorn.
 ## License        
 
 Investment Portfolio Management Web API is released under MIT License. Please see [LICENSE](https://github.com/TilleyCodes/web_api_server_assessment/blob/main/LICENSE) for more details.
+
 ---
 
 ## Database System
@@ -483,5 +484,4 @@ Investment Portfolio Management Web API is released under MIT License. Please se
 
 ---  
 
-## Application Help
 
