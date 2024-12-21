@@ -8,9 +8,6 @@ from flask import Flask
 
 from init import db, ma
 from controllers import db_commands, investors_bp, stocks_bp, orders_bp, transactions_bp, portfolios_bp, watchlists_bp
-# from controllers.cli_controller import db_commands
-# from controllers.investor_controller import investors_bp
-# from controllers.stock_controller import stocks_bp
 
 # basic app factories
 def create_app():

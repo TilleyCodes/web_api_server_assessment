@@ -20,7 +20,7 @@ def create_portfolio():
         # get data from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"messgae": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # Check for valid investor_id
         investor_id = body_data.get("investor_id")
@@ -74,7 +74,7 @@ def get_portfolios():
     stock_id = request.args.get("stock_id")
     if stock_id:
         try:
-            stock_id = int(stock_id) #validating istock id is a number and catching error
+            stock_id = int(stock_id) #validating stock id is a number and catching error
             stmt =stmt.filter(Portfolio.stock_id==stock_id)
         except ValueError:
             return {"message": "Stock ID must be a number."}, 400
@@ -111,7 +111,7 @@ def update_portfolio(portfolio_id):
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
               # Validate investor_id if provided
         if "investor_id" in body_data:

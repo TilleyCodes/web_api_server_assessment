@@ -25,7 +25,7 @@ def create_investor():
             f_name=body_data.get("f_name"),
             l_name=body_data.get("l_name"),
             email=body_data.get("email"),
-            # registration_date removed so SQLAlchemy can handelt the default current date
+            # registration_date removed so SQLAlchemy can handle the default current date
             account_balance=body_data.get("account_balance")
         )
         # add to the session
@@ -42,7 +42,7 @@ def create_investor():
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # unique constraint violation
             return {"message": "Email address already in use"}, 409
-    except ValueError: # invalide date format
+    except ValueError: # invalid date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
     return {"message": "An unexpected error occurred."}, 500
 
@@ -107,7 +107,7 @@ def update_investor(investor_id):
         # get the data to be updated from the request body
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
         # if investor exists
         if investor:
             # update the investor data field
@@ -131,7 +131,7 @@ def update_investor(investor_id):
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # unique constraint violation
             return {"message": "Email address already in use"}, 409
-    except ValueError: # invalide date format
+    except ValueError: # invalid date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
 
 # Delete - /investors/id - DELETE

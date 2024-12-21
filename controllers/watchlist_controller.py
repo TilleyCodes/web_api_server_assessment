@@ -20,7 +20,7 @@ def create_watchlist():
         # get data from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"messgae": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # Check for valid investor_id
         investor_id = body_data.get("investor_id")
@@ -37,7 +37,7 @@ def create_watchlist():
         # create watchlist instance
         new_watchlist = Watchlist(
             investor_id=investor_id,
-            stock_id=investor_id
+            stock_id=stock_id
         )
         # add to the session
         db.session.add(new_watchlist)
@@ -99,7 +99,7 @@ def update_watchlist(watchlist_id):
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
               # Validate investor_id if provided
         if "investor_id" in body_data:
@@ -138,7 +138,7 @@ def delete_watchlist(watchlist_id):
         db.session.delete(watchlist)
         db.session.commit()
         # return response
-        return {"message": f"Watchlist with id'{watchlist.id}' deleted successfully"}, 200
+        return {"message": f"Watchlist with id '{watchlist.id}' deleted successfully"}, 200
     else:
         # return error response
         return {"message": f"Watchlist with id {watchlist_id} does not exist"}, 404

@@ -20,7 +20,7 @@ def create_stock():
         # get information from the request body
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # Check for numeric and non zero/negative value
         stock_price = body_data.get("stock_price")
@@ -97,7 +97,7 @@ def update_stock(stock_id):
         # get the data to be updated from the request body
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
         # if stock exists
         if "stock_price" in body_data:
             try:

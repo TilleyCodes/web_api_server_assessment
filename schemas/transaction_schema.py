@@ -2,12 +2,9 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
-# pylint: disable=unused-import
  # pylint: disable=unused-argument
 
-
 from marshmallow import fields, post_dump
-# need to take a look at fields - unused-import disable
 
 from init import ma
 from enums import TransactionType

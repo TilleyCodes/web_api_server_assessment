@@ -1,7 +1,7 @@
 # pylint: disable=missing-module-docstring
 
 # models/__init__.py
-from .inverstor import Investor
+from .investor import Investor
 from .order import Order
 from .portfolio import Portfolio
 from .transaction import Transaction

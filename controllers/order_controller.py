@@ -23,7 +23,7 @@ def create_order():
         # get data from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # validate & parse trade_date
         trade_date = (
@@ -109,7 +109,7 @@ def get_orders():
     stock_id = request.args.get("stock_id")
     if stock_id:
         try:
-            stock_id = int(stock_id) #validating istock id is a number and catching error
+            stock_id = int(stock_id) #validating stock id is a number and catching error
             stmt =stmt.filter(Order.stock_id==stock_id)
         except ValueError:
             return {"message": "Stock ID must be a number."}, 400
@@ -165,7 +165,7 @@ def update_order(order_id):
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # if order exists
         if order:
@@ -222,7 +222,7 @@ def update_order(order_id):
             # return updated data
             return order_schema.dump(order), 200
 
-    except ValueError: # invalide date format
+    except ValueError: #  date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
     except IntegrityError as err:
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:

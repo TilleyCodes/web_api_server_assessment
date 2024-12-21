@@ -22,7 +22,7 @@ def create_transaction():
         # get data from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"messgae": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # validate & parse transaction_date
         transaction_date = (
@@ -76,7 +76,7 @@ def create_transaction():
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
 
-    except ValueError: # invalide date format
+    except ValueError: # invalid date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
     return {"message": "An unexpected error occurred."}, 500
 
@@ -96,7 +96,7 @@ def get_transactions():
     order_id = request.args.get("order_id")
     if order_id:
         try:
-            order_id = int(order_id) #validating iorder id is a number and catching error
+            order_id = int(order_id) #validating order id is a number and catching error
             stmt =stmt.filter(Transaction.order_id==order_id)
         except ValueError:
             return {"message": "Order ID must be a number."}, 400
@@ -142,7 +142,7 @@ def update_transaction(transaction_id):
         # get the data to be updated from the request body with error handling
         body_data = request.get_json()
         if not body_data:
-            return {"message": "Request body is missing or invalid"}, 400
+            return {"message": "Request body is missing or contains invalid data"}, 400
 
         # if transaction exists
         if transaction:
