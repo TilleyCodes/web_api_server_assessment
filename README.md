@@ -16,7 +16,7 @@
 7. [Deployment](#deployment)    
 8. [Testing](#testing)    
     - [API Endpoints](#api-endpoints)  
-9. [Ethical Impact of the Licenses](#ethical-impact-of-the-licenses)  
+9. [License](#license)  
 10. [Database System](#database-system)  
 
 ---
