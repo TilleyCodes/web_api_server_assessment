@@ -300,19 +300,19 @@ Delete = DELETE
 - Retrieve all investors:   
     - GET /investors  
 - Retrieve a single investor:     
-    - GET '/investors/<investor_id>'  
+    - GET /investors/`<investor_id>`  
 - Retrieve an investor by f_name:   
-    - GET '/investors?f_name=<name>'    
+    - GET /investors?f_name=`<name>`   
 - Retrieve an investor by registration_date:   
-    - GET '/investors?registration_date=<YYYY-MM-DD>'  
+    - GET /investors?registration_date=`<YYYY-MM-DD>`  
 - Retrieve an investor by account_balance:   
-    - GET '/investors?account_balance=<account_balance> '   
+    - GET /investors?account_balance=`<account_balance>`    
 - CREATE investor:   
-    - POST '/investors'  
+    - POST /investors  
 - Update investor:   
-    - PATCH '/investors/<investor_id>'  
+    - PATCH /investors/`<investor_id>`  
 - Delete investor:    
-    - DELETE '/investors/<investor_id>'  
+    - DELETE /investors/`<investor_id>`  
 
 #### stocks entity  
 
