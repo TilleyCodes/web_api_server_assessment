@@ -79,22 +79,26 @@ The purpose of this application is to allow the investors on the platform to man
 
 ## Features and Functions
 
-- Trading and Transactions:  
-    - Place BUY and SELL orders for stocks.  
-	- Record all financial activities (deposits, withdrawals, buys, sells).  
-	- Store transaction details (date, type, amount, status) for history tracking.  
+- Trading and Transactions:   
+    - Place BUY and SELL stock orders.  
+    - Record financial activities, including deposits, withdrawals, buys, and sells.  
+    - Store transaction details (date, type, amount, and status).  
+
 - Investor Accounts and Profiles:  
-    - Create accounts with personal information (name, email).  
-	- View account registration date and current balance.  
+    - Create investor accounts with personal details (name, email).  
+    - View account registration dates and current balances.  
+
 - Portfolios and Holdings:  
-	- Manage portfolios with specific stock holdings and units.  
-	- Track portfolio performance and included stocks.  
+    - Manage portfolios with specific stock holdings and units.  
+    - Monitor portfolio performance.  
+
 - Watchlists:  
-	- Create watchlists to monitor stocks of interest.  
-	- Keep a record of stocks investors are tracking.  
+    - Create watchlists to monitor stocks of interest.  
+    - Track stocks investors are following.  
+
 - Stock Information:  
-	- Access stock details (name, ticker, market price).    
-	- View information about stocks in portfolios or watchlists.     
+    - Access stock details, including name, ticker, and market price.  
+    - Retrieve stock details in portfolios or watchlists.       
 
 ---
 
@@ -117,16 +121,18 @@ The purpose of this application is to allow the investors on the platform to man
 
 ## Installation
 
+This section provides step-by-step instructions to set up the web API server, including creating a virtual environment, installing dependencies, and configuring the database.
+
 1. Please ensure to download the latest [Python3](https://realpython.com/installing-python/)
-2. Install [Terminal for Windows](https://medium.com/@bonguides25/how-to-install-and-update-windows-terminal-in-windows-10-11-b85361b1aa07#:~:text=The%20first%20and%20easiest%20way,minutes%20to%20download%20and%20install.), or [Terminal for Mac](https://medium.com/@latusikl/the-ultimate-setup-for-macos-terminal-7fd340f58366)
+2. Install [Terminal for Windows](https://medium.com/@bonguides25/how-to-install-and-update-windows-terminal-in-windows-10-11-b85361b1aa07#:~:text=The%20first%20and%20easiest%20way,minutes%20to%20download%20and%20install.), or [Terminal for Mac](https://medium.com/@latusikl/the-ultimate-setup-for-macos-terminal-7fd340f58366) is another terminal that can be used to run the application
 3. Optional download: [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) is another terminal that can be used to run the application  
 4. Download [Insomia](https://insomnia.rest/download) for testing API  
 5. Clone from repository to local machine with the following command in terminal:
 ```bash
 git clone https://github.com/TilleyCodes/web_api_server_assessment
 ```
-6. **Virtual Environment Set Up:** Dependant packages are installed through the terminal virtual environment for dependency isolation and system python protection.  
-    Follow these steps in terminal **before** installing the dependant packages:  
+6. **Virtual Environment Set Up:** Dependent packages are installed through the terminal virtual environment for dependency isolation and system python protection.  
+
     i. enter virtual environment 
 ```bash
     python -m venv env
@@ -297,7 +303,7 @@ Example: Create a stock.
 Insomia will be used to test the CRUD operations on all entities for the Investment Portfolio Managemnt WEB API. Using the default http://localhost:5000 as the base URL.         
 Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.    
 
-Note: If using the database in Neon, be sure to update `DATABASE_URI=`. Also Gunicorn default URL localhost port number is 8000 eg. http://localhost:8000  
+Note: If the database is hosted on Neon, update the `DATABASE_URI` in the `.env` file accordingly. Also Gunicorn default URL localhost port number is 8000 eg. http://localhost:8000  
 Start the development server using gunicorn:   
 ```bash
     gunicorn 'main:create_app()'
@@ -313,11 +319,11 @@ Add the endpoint to the end of URL. Example: http://localhost:5000/investors
     - Method: GET `/investors`    
 - Retrieve a single investor:       
     - Method: GET `/investors/<investor_id>`    
-- Retrieve an investor by f_name:     
+- Retrieve a list of investors by f_name:     
     - Method: GET `/investors?f_name=<name>`     
-- Retrieve an investor by registration_date:     
+- Retrieve a list of investors by registration_date:     
     - Method: GET `/investors?registration_date=<YYYY-MM-DD>`    
-- Retrieve an investor by account_balance:     
+- Retrieve a list of investors by account_balance:     
     - Method: GET `/investors?account_balance=<account_balance>`      
 - CREATE investor:     
     - Method: POST /investors    
@@ -335,7 +341,7 @@ Example: GET a single investor with output.
 - Retrieve all stocks:     
     - Method: GET `/stocks`    
 - Retrieve a single stock:       
-    - Method: GET `/stocks/<<stock_id>>`    
+    - Method: GET `/stocks/<stock_id>`    
 - Retrieve a stock by ticker:     
     - Method: GET `/stocks?ticker=<ticker>`      
 - Retrieve a stock by price:     
@@ -359,13 +365,13 @@ Example: Get a stock by ticker with output.
     - Method: GET `/orders`    
 - Retrieve a single order:       
     - Method: GET `/orders/<order_id>`    
-- Retrieve an order by order_type:     
+- Retrieve a list of orders by order_type:     
     - Method: GET `/orders?order_type=<order_type>`      
-- Retrieve an order by order_status:     
+- Retrieve a list of orders by order_status:     
     - Method: GET `/orders?order_status=<order_status>`   
-- Retrieve an order by investor_id:     
+- Retrieve a list of orders by investor_id:     
     - Method: GET `/orders?investor_id=<investor_id>`   
-- Retrieve an order by stock_id:     
+- Retrieve a list of orders by stock_id:     
     - Method: GET `/orders?stock_id=<stock_id>`       
 - CREATE order:     
     - Method: POST `/orders`    
@@ -384,11 +390,11 @@ Example: Create order with output.
     - Method: GET `/transactions`  
 - Retrieve a single transaction:     
     - Method:G ET `/transactions/<transaction_id>`  
-- Retrieve a transaction by transaction_type:   
+- Retrieve a list of transactions by transaction_type:   
     - Method: GET `/transactions?transaction_type=<transaction_type>`   
-- Retrieve a transaction by investor_id:   
+- Retrieve a list of transactions by investor_id:   
     - Method: GET `/transactions?investor_id=<investor_id>` 
-- Retrieve a transaction by order_id:   
+- Retrieve a list of transactions by order_id:   
     - Method: GET `/transactions?order_id=<order_id>`      
 - CREATE transaction:   
     - Method: POST `/transactions`  
@@ -407,9 +413,9 @@ Example: Update transaction with output.
     - Method: GET `/portfolios`  
 - Retrieve a single portfolio:     
     - Method: GET `/portfolios/<portfolio_id>`     
-- Retrieve a portfolio by investor_id:   
+- Retrieve a list of portfolios by investor_id:   
     - Method: GET `/portfolios?investor_id=<investor_id>` 
-- Retrieve a portfolio by stock_id:   
+- Retrieve a list of portfolios by stock_id:   
     - Method: GET `/portfolios?stock_id=<stock_id>`      
 - CREATE portfolio:   
     - Method: POST `/portfolios`  
@@ -430,7 +436,7 @@ Example: Delete portfolio with output.
     - Method: GET `/watchlists/<watchlist_id> `    
 - Retrieve a watchlist by investor_id:   
     - Method: GET `/watchlists?investor_id=<investor_id> `
-- Retrieve a watchlist by stock_id:   
+- Retrieve a list of watchlists by stock_id:   
     - Method: GET `/watchlists?stock_id=<stock_id>`      
 - CREATE watchlist:   
     - Method: POST `/watchlists`  
@@ -447,7 +453,7 @@ Example: Get all watchlists using Gunicorn.
 
 ## License        
 
-Investment Portfolio Management Web API is released under MIT License. Please see [LICENSE](https://github.com/TilleyCodes/web_api_server_assessment/blob/main/LICENSE) for more details.
+This project is licensed under the MIT License. Please see [LICENSE](https://github.com/TilleyCodes/web_api_server_assessment/blob/main/LICENSE) for more details.
 
 ---
 
