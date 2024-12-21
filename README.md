@@ -32,7 +32,7 @@ The purpose of this application is to allow the investors on the platform to man
 
 ![Investment Portfolio Management ERD](<images/API ERD.png>)
 
-#### Legend
+### Legend
 
 ![One and only One](<images/One and only One.png>) - One and only One    
 ![One to Many](<images/One to Many.png>) - One to many  
@@ -119,7 +119,7 @@ The purpose of this application is to allow the investors on the platform to man
 
 1. Please ensure to download the latest [Python3](https://realpython.com/installing-python/)
 2. Install [Terminal for Windows](https://medium.com/@bonguides25/how-to-install-and-update-windows-terminal-in-windows-10-11-b85361b1aa07#:~:text=The%20first%20and%20easiest%20way,minutes%20to%20download%20and%20install.), or [Terminal for Mac](https://medium.com/@latusikl/the-ultimate-setup-for-macos-terminal-7fd340f58366)
-3. Optional download: [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) is another terminal that can be used to run the applciation  
+3. Optional download: [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) is another terminal that can be used to run the application  
 4. Download [Insomia](https://insomnia.rest/download) for testing API  
 5. Clone from repository to local machine with the following command in terminal:
 ```bash
@@ -141,9 +141,9 @@ git clone https://github.com/TilleyCodes/web_api_server_assessment
 or,  
 
     iib. activate environment for windows input:  
- ```bash
+```bash
     .\venv\Scripts\activate
-  ```
+```
 - this will activate virtual environment. You can then run the pip install command for the corresponding packages per below.    
 
     iii. deactivate virtual environment  
@@ -164,7 +164,7 @@ or,
 Installation for the following packages are required for the web API server to run successfully. Steps 5.i-iib under Installation must be completed before running the pip install command below.
 List of required packages are under requirements.txt file and can be used to bulk install per step 6 above.  
 
-- Flask==3.1.0 - a web framework fro python used to design web application, APIs and microservices.
+- Flask==3.1.0 - a web framework for python used to design web application, APIs and microservices.
     - dependencies: 
         - Werkzeug: 3.1.3  
         - Jinja2: 3.1.4 
@@ -179,7 +179,7 @@ List of required packages are under requirements.txt file and can be used to bul
     pip install Flask
 ```
 
-- Flask-SQLAlchemy 3.1.1 - an extention of Flask to add support for SQLAlchemy to the web application.  
+- Flask-SQLAlchemy 3.1.1 - an extension of Flask to add support for SQLAlchemy to the web application.  
     - license: [BSD License](https://github.com/pallets-eco/flask-sqlalchemy/blob/main/LICENSE.txt).  
     - Copyright 2010 Pallets    
 ```bash
@@ -204,21 +204,21 @@ List of required packages are under requirements.txt file and can be used to bul
 
 - psycopg2-binary==2.9.10 - a PostgreSQL database adapter for Python used to connect applications to databases.      
     - license: [Lesser General Public License (LGPL) (LGPL with exceptions)](https://github.com/psycopg/psycopg2/blob/master/LICENSE).    
-    - copywrite 2001-2021, Federico Di Gregorio, Daniele Varrazzo, The Psycopg Team.      
+    - copyright 2001-2021, Federico Di Gregorio, Daniele Varrazzo, The Psycopg Team.      
 ```bash
     pip install psycopg2-binary
 ```  
 
 - python-dotenv==1.0.1 - this package allows users to store key-value pairs from a ".env" file and sets them as environmental variables, allowing the storage of sensitive data that can be excluded from deployment to the public.  
     - license: BSD License (BSD-3-Clause)  
-    - copywrite 2014 Saurabh Kumar (python-dotenv), 2013 Ted Tieken (django-dotenv-rw), 2013 Jacob Kaplan-Moss (django-dotenv)  
+    - copyright 2014 Saurabh Kumar (python-dotenv), 2013 Ted Tieken (django-dotenv-rw), 2013 Jacob Kaplan-Moss (django-dotenv)  
 ```bash
     pip install python-dotenv
 ```    
 
 - gunicorn==23.0.0 - a Python HTTP server for WSGI application.  
     - license: [MIT License (MIT)](https://github.com/benoitc/gunicorn/blob/master/LICENSE)    
-    - copywrite 2009-2024 (c) Benoît Chesneau, 2009-2015 (c) Paul J. Davis  
+    - copyright 2009-2024 (c) Benoît Chesneau, 2009-2015 (c) Paul J. Davis  
 ```bash
     pip install gunicorn
 ```   
@@ -288,16 +288,16 @@ The API was deployed using Render: [https://tilley-investment-portfolio-web-api.
 
 Example: Create a stock.
 
-![Create stock - Render](<images/Create a stock using Render.png>)
+![Create stock Render](<images/Create a stock using Render.png>)
 
 ---
 
 ## Testing    
 
-Insomia will be used to test the CRUD operations on all enties for the Investment Portfolio Managemnt WEB API. Using the default http://locoalhost:5000 as the base URL.         
+Insomia will be used to test the CRUD operations on all entities for the Investment Portfolio Managemnt WEB API. Using the default http://localhost:5000 as the base URL.         
 Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.    
 
-Note: If using database in Neon, by sure to update `DATABASE_URI=`. Also Gunicorn default URL localhost port number is 8000 eg. http://locoalhost:8000  
+Note: If using the database in Neon, be sure to update `DATABASE_URI=`. Also Gunicorn default URL localhost port number is 8000 eg. http://localhost:8000  
 Start the development server using gunicorn:   
 ```bash
     gunicorn 'main:create_app()'
@@ -305,26 +305,26 @@ Start the development server using gunicorn:
 
 ### API Endpoints    
 
-Added the endpoint to the end of URL. Example: http://locoalhost:5000/investors    
+Add the endpoint to the end of URL. Example: http://localhost:5000/investors    
 
 #### investors entity  
 
 - Retrieve all investors:     
-    - Method:GET `/investors`    
+    - Method: GET `/investors`    
 - Retrieve a single investor:       
-    - Method:GET `/investors/<investor_id>`    
+    - Method: GET `/investors/<investor_id>`    
 - Retrieve an investor by f_name:     
-    - Method:GET `/investors?f_name=<name>`     
+    - Method: GET `/investors?f_name=<name>`     
 - Retrieve an investor by registration_date:     
-    - Method:GET `/investors?registration_date=<YYYY-MM-DD>`    
+    - Method: GET `/investors?registration_date=<YYYY-MM-DD>`    
 - Retrieve an investor by account_balance:     
-    - Method:GET `/investors?account_balance=<account_balance>`      
+    - Method: GET `/investors?account_balance=<account_balance>`      
 - CREATE investor:     
-    - Method:POST /investors    
+    - Method: POST /investors    
 - Update investor:     
-    - Method:PATCH `/investors/<investor_id>`    
+    - Method: PATCH `/investors/<investor_id>`    
 - Delete investor:      
-    - Method:DELETE `/investors/<investor_id>`    
+    - Method: DELETE `/investors/<investor_id>`    
 
 Example: GET a single investor with output.  
 
@@ -333,21 +333,21 @@ Example: GET a single investor with output.
 #### stocks entity  
 
 - Retrieve all stocks:     
-    - Method:GET `/stocks`    
+    - Method: GET `/stocks`    
 - Retrieve a single stock:       
-    - Method:GET `/stocks/<<stock_id>>`    
+    - Method: GET `/stocks/<<stock_id>>`    
 - Retrieve a stock by ticker:     
-    - Method:GET `/stocks?ticker=<ticker>`      
+    - Method: GET `/stocks?ticker=<ticker>`      
 - Retrieve a stock by price:     
-    - Method:GET `/stocks?price=<price>`   
+    - Method: GET `/stocks?price=<price>`   
 - Retrieve a stock by account_balance:     
-    - Method:GET `/stocks?account_balance=<account_balance>`     
+    - Method: GET `/stocks?account_balance=<account_balance>`     
 - CREATE stock:     
-    - Method:POST `/stocks`    
+    - Method: POST `/stocks`    
 - Update stock:     
-    - Method:PATCH `/stocks/<stock_id>`    
+    - Method: PATCH `/stocks/<stock_id>`    
 - Delete stock:      
-    - Method:DELETE `/stocks/<stock_id>`    
+    - Method: DELETE `/stocks/<stock_id>`    
 
 Example: Get a stock by ticker with output.  
 
@@ -356,23 +356,23 @@ Example: Get a stock by ticker with output.
 #### orders entity  
 
 - Retrieve all orders:     
-    - Method:GET `/orders`    
+    - Method: GET `/orders`    
 - Retrieve a single order:       
-    - Method:GET `/orders/<order_id>`    
+    - Method: GET `/orders/<order_id>`    
 - Retrieve an order by order_type:     
-    - Method:GET `/orders?order_type=<order_type>`      
+    - Method: GET `/orders?order_type=<order_type>`      
 - Retrieve an order by order_status:     
-    - Method:GET `/orders?order_status=<order_status>`   
+    - Method: GET `/orders?order_status=<order_status>`   
 - Retrieve an order by investor_id:     
-    - Method:GET `/orders?investor_id=<investor_id>`   
+    - Method: GET `/orders?investor_id=<investor_id>`   
 - Retrieve an order by stock_id:     
-    - Method:GET `/orders?stock_id=<stock_id>`       
+    - Method: GET `/orders?stock_id=<stock_id>`       
 - CREATE order:     
-    - Method:POST `/orders`    
+    - Method: POST `/orders`    
 - Update order:     
-    - Method:PATCH `/orders/<order_id>`    
+    - Method: PATCH `/orders/<order_id>`    
 - Delete order:      
-    - Method:DELETE `/orders/<order_id>`  
+    - Method: DELETE `/orders/<order_id>`  
 
 Example: Create order with output.
 
@@ -381,21 +381,21 @@ Example: Create order with output.
 #### transactions entity  
 
 - Retrieve all transactions:   
-    - Method:GET `/transactions`  
+    - Method: GET `/transactions`  
 - Retrieve a single transaction:     
-    - Method:GET `/transactions/<transaction_id>`  
+    - Method:G ET `/transactions/<transaction_id>`  
 - Retrieve a transaction by transaction_type:   
-    - Method:GET `/transactions?transaction_type=<transaction_type>`   
+    - Method: GET `/transactions?transaction_type=<transaction_type>`   
 - Retrieve a transaction by investor_id:   
-    - Method:GET `/transactions?investor_id=<investor_id>` 
+    - Method: GET `/transactions?investor_id=<investor_id>` 
 - Retrieve a transaction by order_id:   
-    - Method:GET `/transactions?order_id=<order_id>`      
+    - Method: GET `/transactions?order_id=<order_id>`      
 - CREATE transaction:   
-    - Method:POST `/transactions`  
+    - Method: POST `/transactions`  
 - Update transaction:   
-    - Method:PATCH `/transactions/<transaction_id>`  
+    - Method: PATCH `/transactions/<transaction_id>`  
 - Delete transaction:    
-    - Method:DELETE `/transactions/<transaction_id>` 
+    - Method: DELETE `/transactions/<transaction_id>` 
 
 Example: Update transaction with output.
 
@@ -404,19 +404,19 @@ Example: Update transaction with output.
 #### portfolios entity  
 
 - Retrieve all portfolios:   
-    - Method:GET `/portfolios`  
+    - Method: GET `/portfolios`  
 - Retrieve a single portfolio:     
-    - Method:GET `/portfolios/<portfolio_id>`     
+    - Method: GET `/portfolios/<portfolio_id>`     
 - Retrieve a portfolio by investor_id:   
-    - Method:GET `/portfolios?investor_id=<investor_id>` 
+    - Method: GET `/portfolios?investor_id=<investor_id>` 
 - Retrieve a portfolio by stock_id:   
-    - Method:GET `/portfolios?stock_id=<stock_id>`      
+    - Method: GET `/portfolios?stock_id=<stock_id>`      
 - CREATE portfolio:   
-    - Method:POST `/portfolios`  
+    - Method: POST `/portfolios`  
 - Update portfolio:   
-    - Method:PATCH `/portfolios/<portfolio_id>`  
+    - Method: PATCH `/portfolios/<portfolio_id>`  
 - Delete portfolio:    
-    - Method:DELETE `/portfolios/<portfolio_id>` 
+    - Method: DELETE `/portfolios/<portfolio_id>` 
 
 Example: Delete portfolio with output.  
 
@@ -425,19 +425,19 @@ Example: Delete portfolio with output.
 #### watchlists entity
  
 - Retrieve all watchlists:   
-    - Method:GET `/watchlists`  
+    - Method: GET `/watchlists`  
 - Retrieve a single watchlist:     
-    - Method:GET `/watchlists/<watchlist_id> `    
+    - Method: GET `/watchlists/<watchlist_id> `    
 - Retrieve a watchlist by investor_id:   
-    - Method:GET `/watchlists?investor_id=<investor_id> `
+    - Method: GET `/watchlists?investor_id=<investor_id> `
 - Retrieve a watchlist by stock_id:   
-    - Method:GET `/watchlists?stock_id=<stock_id>`      
+    - Method: GET `/watchlists?stock_id=<stock_id>`      
 - CREATE watchlist:   
-    - Method:POST `/watchlists`  
+    - Method: POST `/watchlists`  
 - Update watchlist:   
-    - Method:PATCH `/watchlists/<watchlist_id>`  
+    - Method: PATCH `/watchlists/<watchlist_id>`  
 - Delete watchlist:    
-    - Method:DELETE `/watchlists/<watchlist_id>` 
+    - Method: DELETE `/watchlists/<watchlist_id>` 
 
 Example: Get all watchlists using Gunicorn.  
 
@@ -452,7 +452,7 @@ Investment Portfolio Management Web API is released under MIT License. Please se
 
 ## Database System
 
-### Why PostgreSQL is the chosen databse for this web API:  
+### Why PostgreSQL is the chosen database for this web API:  
 
 - PostgreSQL is a reliable, enterprise-grade relational database.
 - It enforces data consistency and integrity, crucial for financial applications.
