@@ -29,7 +29,7 @@ You have duplicated the same command to seed and drop the tables. Update the com
 **My notes and plan of action based on feedback:**  
 - Corrected the duplicate code command. Went through all of ReadMe throughly to triple check for any spelling mistakes and duplicate code comments.
 
-## Feedback 
+## Feedback 3
 
 **Specific documentation checked:** ReadMe    
 **Feedback from:** Evan    
