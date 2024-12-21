@@ -287,125 +287,133 @@ The API was deployed using Render: [https://tilley-investment-portfolio-web-api.
 Insomia will be used to test the CRUD operations on all enties for the Investment Portfolio Managemnt WEB API. Using the default http://locoalhost:5000 as the base URL.       
 Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.  
 
-### API Endpoints  
+### API Endpoints    
 
-Methods:
-Create = POST
-Read = GET
-Update = PUT / PATCH
-Delete = DELETE
+Added the endpoint to the end of URL. Example: http://locoalhost:5000/investors    
 
-#### investors entity
+#### investors entity  
 
-- Retrieve all investors:   
-    - GET /investors  
-- Retrieve a single investor:     
-    - GET /investors/`<investor_id>`  
-- Retrieve an investor by f_name:   
-    - GET /investors?f_name=`<name>`   
-- Retrieve an investor by registration_date:   
-    - GET /investors?registration_date=`<YYYY-MM-DD>`  
-- Retrieve an investor by account_balance:   
-    - GET /investors?account_balance=`<account_balance>`    
-- CREATE investor:   
-    - POST /investors  
-- Update investor:   
-    - PATCH /investors/`<investor_id>`  
-- Delete investor:    
-    - DELETE /investors/`<investor_id>`  
+- Retrieve all investors:     
+    - Method:GET `/investors`    
+- Retrieve a single investor:       
+    - Method:GET `/investors/<investor_id>`    
+- Retrieve an investor by f_name:     
+    - Method:GET `/investors?f_name=<name>`     
+- Retrieve an investor by registration_date:     
+    - Method:GET `/investors?registration_date=<YYYY-MM-DD>`    
+- Retrieve an investor by account_balance:     
+    - Method:GET `/investors?account_balance=<account_balance>`      
+- CREATE investor:     
+    - Method:POST /investors    
+- Update investor:     
+    - Method:PATCH `/investors/<investor_id>`    
+- Delete investor:      
+    - Method:DELETE `/investors/<investor_id>`    
+
+Example: GET a single investor with output.  
+
+![GET a single investor](<images/Example for GET a single investor.png>)  
 
 #### stocks entity  
 
-- Retrieve all stocks:   
-    - http://localhost:5000/stocks  
-- Retrieve a single stock:     
-    - http://localhost:5000/stocks/<<stock_id>>  
-- Retrieve a stock by ticker:   
-    - http://localhost:5000/stocks?ticker=<<ticker>>    
-- Retrieve a stock by price:   
-    - http://localhost:5000/stocks?price=<<price>> 
-- Retrieve a stock by account_balance:   
-    - http://localhost:5000/stocks?account_balance=<<account_balance>>    
-- CREATE stock:   
-    - http://localhost:5000/stocks  
-- Update stock:   
-    - http://localhost:5000/stocks/<<stock_id>>  
-- Delete stock:    
-    - http://localhost:5000/stocks/<<stock_id>>  
+- Retrieve all stocks:     
+    - Method:GET `/stocks`    
+- Retrieve a single stock:       
+    - Method:GET `/stocks/<<stock_id>>`    
+- Retrieve a stock by ticker:     
+    - Method:GET `/stocks?ticker=<ticker>`      
+- Retrieve a stock by price:     
+    - Method:GET `/stocks?price=<price>`   
+- Retrieve a stock by account_balance:     
+    - Method:GET `/stocks?account_balance=<account_balance>`     
+- CREATE stock:     
+    - Method:POST `/stocks`    
+- Update stock:     
+    - Method:PATCH `/stocks/<stock_id>`    
+- Delete stock:      
+    - Method:DELETE `/stocks/<stock_id>`    
+
+Example: Get a stock by ticker with output.  
+
+![Get a stock by ticker](<images/Get a stocker by ticker.png>)  
 
 #### orders entity  
 
-- Retrieve all orders:   
-    - http://localhost:5000/orders  
-- Retrieve a single order:     
-    - http://localhost:5000/orders/<<order_id>>  
-- Retrieve an order by order_type:   
-    - http://localhost:5000/orders?order_type=<<order_type>>    
-- Retrieve an order by order_status:   
-    - http://localhost:5000/orders?order_status=<<order_status>> 
-- Retrieve an order by investor_id:   
-    - http://localhost:5000/orders?investor_id=<<investor_id>> 
-- Retrieve an order by stock_id:   
-    - http://localhost:5000/orders?stock_id=<<stock_id>>      
-- CREATE order:   
-    - http://localhost:5000/orders  
-- Update order:   
-    - http://localhost:5000/orders/<<order_id>>  
-- Delete order:    
-    - http://localhost:5000/orders/<<order_id>> 
+- Retrieve all orders:     
+    - Method:GET `/orders`    
+- Retrieve a single order:       
+    - Method:GET `/orders/<order_id>`    
+- Retrieve an order by order_type:     
+    - Method:GET `/orders?order_type=<order_type>`      
+- Retrieve an order by order_status:     
+    - Method:GET `/orders?order_status=<order_status>`   
+- Retrieve an order by investor_id:     
+    - Method:GET `/orders?investor_id=<investor_id>`   
+- Retrieve an order by stock_id:     
+    - Method:GET `/orders?stock_id=<stock_id>`       
+- CREATE order:     
+    - Method:POST `/orders`    
+- Update order:     
+    - Method:PATCH `/orders/<order_id>`    
+- Delete order:      
+    - Method:DELETE `/orders/<order_id>`  
+
+Example: Create order with output.
+
+![Create order](<images/Create order.png>)
 
 #### transactions entity  
 
 - Retrieve all transactions:   
-    - http://localhost:5000/transactions  
+    - Method:GET `/transactions`  
 - Retrieve a single transaction:     
-    - http://localhost:5000/transactions/<<transaction_id>>  
+    - Method:GET `/transactions/<transaction_id>`  
 - Retrieve a transaction by transaction_type:   
-    - http://localhost:5000/transactions?transaction_type=<<transaction_type>>    
+    - Method:GET `/transactions?transaction_type=<transaction_type>`   
 - Retrieve a transaction by investor_id:   
-    - http://localhost:5000/transactions?investor_id=<<investor_id>> 
+    - Method:GET `/transactions?investor_id=<investor_id>` 
 - Retrieve a transaction by order_id:   
-    - http://localhost:5000/transactions?order_id=<<order_id>>      
+    - Method:GET `/transactions?order_id=<order_id>`      
 - CREATE transaction:   
-    - http://localhost:5000/transactions  
+    - Method:POST `/transactions`  
 - Update transaction:   
-    - http://localhost:5000/transactions/<<transaction_id>>  
+    - Method:PATCH `/transactions/<transaction_id>`  
 - Delete transaction:    
-    - http://localhost:5000/transactions/<<transaction_id>> 
+    - Method:DELETE `/transactions/<transaction_id>` 
 
 #### portfolios entity  
 
 - Retrieve all portfolios:   
-    - http://localhost:5000/portfolios  
+    - Method:GET `/portfolios`  
 - Retrieve a single portfolio:     
-    - http://localhost:5000/portfolios/<<portfolio_id>>     
+    - Method:GET `/portfolios/<portfolio_id>`     
 - Retrieve a portfolio by investor_id:   
-    - http://localhost:5000/portfolios?investor_id=<<investor_id>> 
+    - Method:GET `/portfolios?investor_id=<investor_id>` 
 - Retrieve a portfolio by stock_id:   
-    - http://localhost:5000/portfolios?stock_id=<<stock_id>>      
+    - Method:GET `/portfolios?stock_id=<stock_id>`      
 - CREATE portfolio:   
-    - http://localhost:5000/portfolios  
+    - Method:POST `/portfolios`  
 - Update portfolio:   
-    - http://localhost:5000/portfolios/<<portfolio_id>>  
+    - Method:PATCH `/portfolios/<portfolio_id>`  
 - Delete portfolio:    
-    - http://localhost:5000/portfolios/<<portfolio_id>> 
+    - Method:DELETE `/portfolios/<portfolio_id>` 
 
 #### watchlists entity
  
 - Retrieve all watchlists:   
-    - http://localhost:5000/watchlists  
+    - Method:GET `/watchlists`  
 - Retrieve a single watchlist:     
-    - http://localhost:5000/watchlists/<<watchlist_id>>     
+    - Method:GET `/watchlists/<watchlist_id> `    
 - Retrieve a watchlist by investor_id:   
-    - http://localhost:5000/watchlists?investor_id=<<investor_id>> 
+    - Method:GET `/watchlists?investor_id=<investor_id> `
 - Retrieve a watchlist by stock_id:   
-    - http://localhost:5000/watchlists?stock_id=<<stock_id>>      
+    - Method:GET `/watchlists?stock_id=<stock_id>`      
 - CREATE watchlist:   
-    - http://localhost:5000/watchlists  
+    - Method:POST `/watchlists`  
 - Update watchlist:   
-    - http://localhost:5000/watchlists/<<watchlist_id>>  
+    - Method:PATCH `/watchlists/<watchlist_id>`  
 - Delete watchlist:    
-    - http://localhost:5000/watchlists/<<watchlist_id>> 
+    - Method:DELETE `/watchlists/<watchlist_id>` 
 
 ---
 
