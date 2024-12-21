@@ -1,9 +1,12 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-
+"""
+This module defines the Watchlist model for tracking stocks that investors are monitoring.
+"""
 from init import db
 
 class Watchlist(db.Model):
+    """
+    This class represents a stock watchlist entry for an investor.
+    """
     __tablename__ = "watchlists"
 
     id = db.Column(db.Integer, primary_key=True)

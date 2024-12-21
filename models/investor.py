@@ -1,12 +1,17 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+
+"""
+This module defines the Investor model representing individual investors in the database.
+"""
 
 from datetime import date
 
 from init import db
 
 class Investor(db.Model):
+    """
+    This class represents an investor with personal details and related data.
+    """
     __tablename__ = "investors"
 
     id = db.Column(db.Integer, primary_key=True)

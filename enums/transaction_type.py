@@ -1,9 +1,13 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+"""
+this moudule defines the TransactionType enumeration for transaction types.
+"""
 
 import enum
 
 class TransactionType(enum.Enum):
+    """
+    Enum for transaction types.
+    """
     DEPOSIT = "DEPOSIT"
     WITHDRAWAL = "WITHDRAWAL"
     BUY = "BUY"

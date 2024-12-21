@@ -1,7 +1,9 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
 # pylint: disable=bad-indentation
+
+"""
+Blueprint for Watchlist CRUD operations.
+"""
 
 from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
@@ -16,6 +18,9 @@ watchlists_bp = Blueprint("watchlists", __name__, url_prefix="/watchlists")
 # Create - /watchlists - POST
 @watchlists_bp.route("/", methods=["POST"])
 def create_watchlist():
+    """
+    Function to create a new watchlist.
+    """
     try:
         # get data from the request body with error handling
         body_data = request.get_json()
@@ -54,6 +59,9 @@ def create_watchlist():
 # Read all - /watchlists - GET
 @watchlists_bp.route("/", methods=["GET"])
 def get_watchlists():
+        """
+        Function to retrieve all watchlist entries, filtered by optional query parameters.
+        """
         stmt = db.select(Watchlist) # assigning stmt with base query to avoid repetition
 
         investor_id = request.args.get("investor_id")
@@ -77,6 +85,9 @@ def get_watchlists():
 # Read one - /watchlists/id - GET
 @watchlists_bp.route("/<int:watchlist_id>")
 def get_watchlist(watchlist_id):
+    """
+    Function to retrieve a single watchlist by ID.
+    """
     stmt = db.select(Watchlist).filter_by(id=watchlist_id)
     watchlist = db.session.scalar(stmt)
     if watchlist:
@@ -88,6 +99,9 @@ def get_watchlist(watchlist_id):
 # Update - /watchlists/id - PUT or PATCH
 @watchlists_bp.route("/<int:watchlist_id>", methods=["PUT", "PATCH"])
 def update_watchlist(watchlist_id):
+    """
+    Function to update a watchlist by ID.
+    """
     try:
         # find watchlist with id to update
         stmt = db.select(Watchlist).filter_by(id=watchlist_id)
@@ -130,6 +144,9 @@ def update_watchlist(watchlist_id):
 # Delete - /watchlists/id - DELETE
 @watchlists_bp.route("/<int:watchlist_id>", methods=["DELETE"])
 def delete_watchlist(watchlist_id):
+    """
+    Function to delete a watchlist by ID.
+    """
     # find the watchlist to delete using id
     stmt = db.select(Watchlist).filter_by(id=watchlist_id)
     watchlist = db.session.scalar(stmt)

@@ -1,6 +1,9 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
+
+"""
+This module defines the `create_app` function, which initialises the Flask application
+with configurations, extensions, error handlers, and blueprints.
+"""
 
 import os
 
@@ -12,6 +15,14 @@ from controllers import db_commands, investors_bp, stocks_bp, orders_bp, transac
 
 # basic app factories
 def create_app():
+    """
+    This function creates and configures the Flask app.
+
+    Sets up the database, marshmallow, error handlers, and blueprints.
+
+    Returns:
+        Flask: The app instance.
+    """
     # initialising flask inside a function
     app = Flask(__name__)
 

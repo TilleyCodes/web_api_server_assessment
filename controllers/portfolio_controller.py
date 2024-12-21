@@ -1,7 +1,8 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
 
+"""
+Blueprint for Portfolio CRUD operations.
+"""
 
 from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
@@ -16,6 +17,9 @@ portfolios_bp = Blueprint("portfolios", __name__, url_prefix="/portfolios")
 # Create - /portfolios - POST
 @portfolios_bp.route("/", methods=["POST"])
 def create_portfolio():
+    """
+    Function to create a new portfolio entry.
+    """
     try:
         # get data from the request body with error handling
         body_data = request.get_json()
@@ -61,6 +65,9 @@ def create_portfolio():
 # Read all - /portfolios - GET
 @portfolios_bp.route("/", methods=["GET"])
 def get_portfolios():
+    """
+    Function to retrieve all portfolios with optional query parameters.
+    """
     stmt = db.select(Portfolio)
 
     investor_id = request.args.get("investor_id")
@@ -89,6 +96,9 @@ def get_portfolios():
 # Read one - /portfolios/id - GET
 @portfolios_bp.route("/<int:portfolio_id>")
 def get_portfolio(portfolio_id):
+    """
+    Function to retrieve a portfolio by ID.
+    """
     stmt = db.select(Portfolio).filter_by(id=portfolio_id)
     portfolio = db.session.scalar(stmt)
     if portfolio:
@@ -100,6 +110,9 @@ def get_portfolio(portfolio_id):
 # Update - /portfolios/id - PUT or PATCH
 @portfolios_bp.route("/<int:portfolio_id>", methods=["PUT", "PATCH"])
 def update_portfolio(portfolio_id):
+    """
+    Function to update a portfolio by ID.
+    """
     try:
         # find portfolio with id to update
         stmt = db.select(Portfolio).filter_by(id=portfolio_id)
@@ -148,6 +161,9 @@ def update_portfolio(portfolio_id):
 # Delete - /portfolios/id - DELETE
 @portfolios_bp.route("/<int:portfolio_id>", methods=["DELETE"])
 def delete_portfolio(portfolio_id):
+    """
+    Function to delete a portfolio by ID.
+    """
     # find the portfolio to delete using id
     stmt = db.select(Portfolio).filter_by(id=portfolio_id)
     portfolio = db.session.scalar(stmt)

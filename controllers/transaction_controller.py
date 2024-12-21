@@ -1,6 +1,8 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
+
+"""
+Blueprint for Transaction CRUD operations.
+"""
 
 from datetime import date
 
@@ -18,6 +20,9 @@ transactions_bp = Blueprint("transactions", __name__, url_prefix="/transactions"
 # Create - /transactions - POST
 @transactions_bp.route("/", methods=["POST"])
 def create_transaction():
+    """
+    Function to create a new transaction.
+    """
     try:
         # get data from the request body with error handling
         body_data = transaction_schema.load(request.get_json())
@@ -83,6 +88,9 @@ def create_transaction():
 # Read all - /transactions - GET
 @transactions_bp.route("/", methods=["GET"])
 def get_transactions():
+    """
+    Function to retrieve all transactions, optionally filtered by query parameters.
+    """
     stmt = db.select(Transaction)
 
     investor_id = request.args.get("investor_id")
@@ -120,6 +128,9 @@ def get_transactions():
 # Read one - /transactions/id - GET
 @transactions_bp.route("/<int:transaction_id>")
 def get_transaction(transaction_id):
+    """
+    Function to retrieve a transaction by ID.
+    """
     stmt = db.select(Transaction).filter_by(id=transaction_id)
     transaction = db.session.scalar(stmt)
     if transaction:
@@ -131,6 +142,9 @@ def get_transaction(transaction_id):
 # Update - /transactions/id - PUT or PATCH
 @transactions_bp.route("/<int:transaction_id>", methods=["PUT", "PATCH"])
 def update_transaction(transaction_id):
+    """
+    Function to update a transaction by ID.
+    """
     try:
         # find transaction with id to update
         stmt = db.select(Transaction).filter_by(id=transaction_id)
@@ -196,6 +210,9 @@ def update_transaction(transaction_id):
 # Delete - /transactions/id - DELETE
 @transactions_bp.route("/<int:transaction_id>", methods=["DELETE"])
 def delete_order(transaction_id):
+    """
+    Function to delete a transaction by ID.
+    """
     # find the transaction to delete using id
     stmt = db.select(Transaction).filter_by(id=transaction_id)
     transaction = db.session.scalar(stmt)

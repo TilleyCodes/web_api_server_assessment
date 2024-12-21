@@ -2,21 +2,53 @@
 
 **Specific documentation checked:** ReadMe    
 **Feedback from:** Elijah      
-**Date of feedback:** 04/12/2024     
+**Date of feedback:** 16/12/2024     
 **Feedback Provided:**     
-- In the CurrencyConverter class, it might be usfule to add some extra error messages for cases like invalide currency codes, so users can understand what went wrong.  
-- Possibly include a section in the ReadMe that touches on any ethic considerations, like how the app ensures fair exchange rates and how it handles user's data.  
-- Code comments - module level docstrings and clarity on classes.
+The readme looks good. The installation, packages and setup sections
+are very clear and list all of the steps that need to be taken.
 
 **Actions to be complete based on feedback:**    
-- It would be helpful to add some user-friendly error messsages in the CurrencyConverter class for errors such as unrecognised currencies. 
-- Maybe prompt users to try again if they make a mistake.  
-- A small section in the ReadMe about ethical considerations would be great addition, letting users know how you ensure the exchange rates are fair and how you handle any date privacy.  
-- Review of code comments
+Typos: Overview and Purpose "monitor thier stocks of interest". Go through and check for typos 
 
 **My notes and plan of action based on feedback:**  
-- Error messages for incorrect currency code input are captured in currency_converter_functions.py: - no action  
-- The application captures real-time exchange rate base on the market using APi key from http://api.exchangeratesapi.io.: - updated in ReadMe with a link to license & service agreement   
-- Review code comments: - reviewed and updated to include code examples   
+-   
 
 ---
+
+## Feedback 2
+
+**Specific documentation checked:** ReadMe    
+**Feedback from:** Richard     
+**Date of feedback:** 17/12/2024     
+**Feedback Provided:**     
+Overall it's easy to read and I can follow the instructions to install the packages
+
+**Actions to be complete based on feedback:**    
+You have duplicated the same command to seed and drop the tables. Update the command for drop table 
+
+**My notes and plan of action based on feedback:**  
+- Corrected the duplicate code command. Went through all of ReadMe throughly to triple check for any spelling mistakes and duplicate code comments.
+
+## Feedback 
+
+**Specific documentation checked:** ReadMe    
+**Feedback from:** Evan    
+**Date of feedback:** 21/12/2024     
+**Feedback Provided:**     
+Strengths:
+
+Separation of Concerns: Using an app factory function (create_app) promotes modularity and testability.
+
+Environment Variable Usage: Utilising os.environ.get("DATABASE_URI") makes the configuration flexible and suitable for different environments.
+
+Blueprint Registration: Clearly registering blueprints for different parts of your application is an excellent approach for organising your codebase.
+
+**Actions to be complete based on feedback:**    
+Areas For Improvement:
+
+Add docstrings to describe the purpose of the module and functions.
+
+Other than that I can't find anything else It's really good
+
+**My notes and plan of action based on feedback:**  
+- Went through all Controllers, Enums, Models, Schemas and Main and added docstring comments for all modules, classes and functions

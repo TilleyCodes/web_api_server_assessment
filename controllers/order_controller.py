@@ -1,7 +1,8 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
 
+"""
+Blueprint for Order CRUD operations.
+"""
 
 from datetime import date
 
@@ -19,6 +20,9 @@ orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
 # Create - /orders - POST
 @orders_bp.route("/", methods=["POST"])
 def create_order():
+    """
+    Function to create a new order.
+    """
     try:
         # get data from the request body with error handling
         body_data = order_schema.load(request.get_json())
@@ -96,6 +100,9 @@ def create_order():
 # Read all - /orders - GET
 @orders_bp.route("/", methods=["GET"])
 def get_orders():
+    """
+    Function to retrieve all orders with optional query parameters.
+    """
     stmt = db.select(Order)
 
     investor_id = request.args.get("investor_id")
@@ -142,6 +149,9 @@ def get_orders():
 # Read one - /orders/id - GET
 @orders_bp.route("/<int:order_id>")
 def get_order(order_id):
+    """
+    Function to retrieve an order by ID.
+    """
     stmt = db.select(Order).filter_by(id=order_id)
     order = db.session.scalar(stmt)
     if order:
@@ -153,6 +163,9 @@ def get_order(order_id):
 # Update - /orders/id - PUT or PATCH
 @orders_bp.route("/<int:order_id>", methods=["PUT", "PATCH"])
 def update_order(order_id):
+    """
+    Function to update an order by ID.
+    """
     try:
         # find order with id to update
         stmt = db.select(Order).filter_by(id=order_id)
@@ -232,6 +245,9 @@ def update_order(order_id):
 # Delete - /orders/id - DELETE
 @orders_bp.route("/<int:order_id>", methods=["DELETE"])
 def delete_order(order_id):
+    """
+    Function to delete an order by ID.
+    """
     # find the order to delete using id
     stmt = db.select(Order).filter_by(id=order_id)
     order = db.session.scalar(stmt)

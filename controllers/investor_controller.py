@@ -1,5 +1,6 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
+"""
+Blueprint for Investor CRUD operations.
+"""
 
 from datetime import date
 
@@ -16,6 +17,9 @@ investors_bp = Blueprint("investors", __name__, url_prefix="/investors")
 # Create - /investors - POST
 @investors_bp.route("/", methods=["POST"])
 def create_investor():
+    """
+    Function to create a new investor.
+    """
     try:
         # get information from the request body
         body_data = investor_schema.load(request.get_json())
@@ -49,6 +53,9 @@ def create_investor():
 # Read all - /investors - GET
 @investors_bp.route("/")
 def get_investors():
+    """
+    Function to retrieve all investors with optional query parameters.
+    """
     stmt = db.select(Investor) # assigning stmt with base query to avoid repetition
 
     f_name = request.args.get("f_name") #query parameter
@@ -89,6 +96,9 @@ def get_investors():
 # Read one - /investors/id - GET
 @investors_bp.route("/<int:investor_id>")
 def get_investor(investor_id):
+    """
+    Function to retrieve an investor by ID.
+    """
     stmt = db.select(Investor).filter_by(id=investor_id)
     investor = db.session.scalar(stmt)
     if investor:
@@ -100,6 +110,9 @@ def get_investor(investor_id):
 # Update - /investors/id - PUT or PATCH
 @investors_bp.route("/<int:investor_id>", methods=["PUT", "PATCH"])
 def update_investor(investor_id):
+    """
+    Function to update an investor by ID.
+    """
     try:
         # find investor with id to update
         stmt = db.select(Investor).filter_by(id=investor_id)
@@ -137,6 +150,9 @@ def update_investor(investor_id):
 # Delete - /investors/id - DELETE
 @investors_bp.route("/<int:investor_id>", methods=["DELETE"])
 def delete_investor(investor_id):
+    """
+    Function to delete an investor by ID.
+    """
     # find the investor to delete using id
     stmt = db.select(Investor).filter_by(id=investor_id)
     investor = db.session.scalar(stmt)

@@ -1,10 +1,15 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+
+"""
+this module defines the Stock model representing stocks in the database.
+"""
 
 from init import db
 
 class Stock(db.Model):
+    """
+    This class represents a stock with its details and relationships.
+    """
     __tablename__ = "stocks"
 
     id = db.Column(db.Integer, primary_key=True)

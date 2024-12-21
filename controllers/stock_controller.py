@@ -1,7 +1,9 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
 # pylint: disable=bad-indentation
+
+"""
+Blueprint for Stock CRUD operations.
+"""
 
 from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
@@ -16,6 +18,9 @@ stocks_bp = Blueprint("stocks", __name__, url_prefix="/stocks")
 # Create - /stocks - POST
 @stocks_bp.route("/", methods=["POST"])
 def create_stock():
+    """
+    Function to create a new stock.
+    """
     try:
         # get information from the request body
         body_data = request.get_json()
@@ -54,6 +59,9 @@ def create_stock():
 # Read all - /stocks - GET
 @stocks_bp.route("/")
 def get_stocks():
+    """
+    Function to retrieve all stocks with optional query parameters.
+    """
     stmt = db.select(Stock)
 
     ticker = request.args.get("ticker") #query parameter
@@ -78,6 +86,9 @@ def get_stocks():
 # Read one - /stocks/id - GET
 @stocks_bp.route("/<int:stock_id>")
 def get_stock(stock_id):
+    """
+        Function to retrieve a stock by ID.
+        """
     stmt = db.select(Stock).filter_by(id=stock_id)
     stock = db.session.scalar(stmt)
     if stock:
@@ -89,6 +100,9 @@ def get_stock(stock_id):
 # Update - /stocks/id - PUT or PATCH
 @stocks_bp.route("/<int:stock_id>", methods=["PUT", "PATCH"])
 def update_stock(stock_id):
+        """
+        Function to update a stock by ID.
+        """
         # find stock with id to update
         stmt = db.select(Stock).filter_by(id=stock_id)
         stock = db.session.scalar(stmt)
@@ -119,6 +133,9 @@ def update_stock(stock_id):
 # Delete - /stocks/id - DELETE
 @stocks_bp.route("/<int:stock_id>", methods=["DELETE"])
 def delete_stock(stock_id):
+    """
+    Function to delete a stock by ID.
+    """
     # find the stock to delete using id
     stmt = db.select(Stock).filter_by(id=stock_id)
     stock = db.session.scalar(stmt)

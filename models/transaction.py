@@ -1,6 +1,8 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+
+"""
+This module defines the Transaction model for tracking financial transactions of investors.
+"""
 
 from datetime import date
 
@@ -8,6 +10,9 @@ from init import db
 from enums import TransactionType
 
 class Transaction(db.Model):
+    """
+    This class represents a transaction between an investor.
+    """
     __tablename__ = "transactions"
 
     id = db.Column(db.Integer, primary_key=True)

@@ -1,10 +1,16 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+
+"""
+This module defines the Portfolio model representing stock holdings of investors.
+"""
 
 from init import db
 
 class Portfolio(db.Model):
+    """
+    This classepresents an investor's portfolio, detailing stock holdings.
+    """
+
     __tablename__ = "portfolios"
 
     id = db.Column(db.Integer, primary_key=True)

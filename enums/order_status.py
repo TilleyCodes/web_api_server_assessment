@@ -1,9 +1,13 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+"""
+this module defines the OrderStatus enumeration for order status.
+"""
 
 import enum
 
 class OrderStatus(enum.Enum):
+    """
+    Enum for order status.
+    """
     PENDING = "PENDING"
     EXECUTED = "EXECUTED"
     

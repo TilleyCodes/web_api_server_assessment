@@ -1,15 +1,19 @@
 # pylint: disable=line-too-long
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
+
+"""
+This module defines the Order model representing orders placeds by investors in the database.
+"""
 
 from datetime import date
 
 from init import db
 from enums import OrderType, OrderStatus
 
-
-
 class Order(db.Model):
+    """
+    This class represents an investor's order.
+    """
+
     __tablename__ = "orders"
 
     id = db.Column(db.Integer, primary_key=True)

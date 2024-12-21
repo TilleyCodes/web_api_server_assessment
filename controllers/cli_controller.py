@@ -1,6 +1,8 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
 # pylint: disable=bad-indentation
+
+"""
+CLI commands for managing the database and seeding initial data.
+"""
 
 from datetime import date
 
@@ -15,16 +17,25 @@ db_commands = Blueprint("db", __name__)
 
 @db_commands.cli.command("create")
 def create_tables():
+    """
+    Create all database tables.
+    """
     db.create_all()
     print("Tables created")
 
 @db_commands.cli.command("drop")
 def drop_tables():
+    """
+    Drop all database tables.
+    """
     db.drop_all()
     print("Tables dropped")
 
 @db_commands.cli.command("seed")
 def seed_tables():
+     """
+    Seed the database with initial data.
+    """
      investors = [
           Investor(f_name="Papa",
                l_name="Li",
