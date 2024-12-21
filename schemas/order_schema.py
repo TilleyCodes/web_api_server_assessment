@@ -4,7 +4,10 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=unused-argument
 
-from marshmallow import fields, post_dump
+from datetime import date
+
+from marshmallow import fields, post_dump, validates
+from marshmallow.exceptions import ValidationError
 
 from init import ma
 from enums import OrderType, OrderStatus
@@ -24,6 +27,12 @@ class OrderSchema(ma.Schema):
         if isinstance(data.get("order_type"), OrderType):
             data["order_type"] = data["order_type"].value
         return data
+
+    @validates('trade_date')
+    def validate_trade_date(self, value):
+        today = date.today()
+        if date.fromisoformat(value) < today:
+            raise ValidationError("Trade date cannot be back dated.")
 
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)

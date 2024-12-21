@@ -18,7 +18,7 @@ investors_bp = Blueprint("investors", __name__, url_prefix="/investors")
 def create_investor():
     try:
         # get information from the request body
-        body_data = request.get_json()
+        body_data = investor_schema.load(request.get_json())
 
         # create investor instance
         new_investor = Investor(

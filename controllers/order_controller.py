@@ -21,7 +21,7 @@ orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
 def create_order():
     try:
         # get data from the request body with error handling
-        body_data = request.get_json()
+        body_data = order_schema.load(request.get_json())
         if not body_data:
             return {"message": "Request body is missing or contains invalid data"}, 400
 

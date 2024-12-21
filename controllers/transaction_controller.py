@@ -20,7 +20,7 @@ transactions_bp = Blueprint("transactions", __name__, url_prefix="/transactions"
 def create_transaction():
     try:
         # get data from the request body with error handling
-        body_data = request.get_json()
+        body_data = transaction_schema.load(request.get_json())
         if not body_data:
             return {"message": "Request body is missing or contains invalid data"}, 400
 
