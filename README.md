@@ -286,6 +286,10 @@ Run the following command in a new terminal to create and seed the tables before
 
 The API was deployed using Render: [https://tilley-investment-portfolio-web-api.onrender.com]   
 
+Example: Create a stock.
+
+![Create stock - Render](<images/Create a stock using Render.png>)
+
 ---
 
 ## Testing    
@@ -294,7 +298,7 @@ Insomia will be used to test the CRUD operations on all enties for the Investmen
 Follow step 4 in [Installation](#installation) if Insomia is not yet downloaded.    
 
 Note: If using database in Neon, by sure to update `DATABASE_URI=`. Also Gunicorn default URL localhost port number is 8000 eg. http://locoalhost:8000  
-Start the development server ising gunicorn:   
+Start the development server using gunicorn:   
 ```bash
     gunicorn 'main:create_app()'
 ```  
