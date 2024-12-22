@@ -20,7 +20,7 @@ class Transaction(db.Model):
     transaction_type = db.Column(db.Enum(TransactionType), nullable=False) # this has enumerate
     amount = db.Column(db.Numeric(precision=15, scale=2),nullable=False)
     investor_id = db.Column(db.Integer, db.ForeignKey("investors.id"), nullable=False)
-    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=True)
+    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=True, unique=True)
     # relationships can have many transactions but to 1 investor and order
     investor = db.relationship("Investor", back_populates="transactions")
     order = db.relationship("Order", back_populates="transaction")

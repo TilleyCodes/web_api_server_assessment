@@ -27,4 +27,4 @@ class Order(db.Model):
     #relationship  can have many orders to 1 investor and 1 stock, 1 order to 1 transaction
     investor = db.relationship("Investor", back_populates= "orders")
     stock = db.relationship("Stock", back_populates = "orders") # dont need cascade delete as this refers to investors and stocks table
-    transaction = db.relationship("Transaction", back_populates = "order", cascade="all, delete-orphan")
+    transaction = db.relationship("Transaction", back_populates = "order", uselist=False, cascade="all, delete-orphan")

@@ -11,7 +11,7 @@ from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
 from init import db
-from models import Order, Investor, Transaction
+from models import Investor, Order, Transaction
 from enums import TransactionType
 from schemas.transaction_schema import transactions_schema, transaction_schema
 
@@ -25,7 +25,7 @@ def create_transaction():
     """
     try:
         # get data from the request body with error handling
-        body_data = transaction_schema.load(request.get_json())
+        body_data = request.get_json()
         if not body_data:
             return {"message": "Request body is missing or contains invalid data"}, 400
 
@@ -80,6 +80,10 @@ def create_transaction():
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # not null violation
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 400
+
+        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+            # unique constraint violation
+            return {"message": "Order ID already associated with a transaction"}, 409
 
     except ValueError: # invalid date format
         return {"message": "Invalid date format. Please use YYYY-MM-DD"}, 400
@@ -193,7 +197,7 @@ def update_transaction(transaction_id):
         if "order_id" in body_data:
             order = db.session.get(Order, body_data["order_id"])
             if not order:
-                return {"message": f"Invalid order_id: {body_data['stock_id']} does not exist."}, 404
+                return {"message": f"Invalid order_id: {body_data['order_id']} does not exist."}, 404
             transaction.order_id = body_data["order_id"]
 
             # commit changes

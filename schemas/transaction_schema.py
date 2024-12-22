@@ -23,7 +23,7 @@ class TransactionSchema(ma.Schema):
         """
         This class specifies fields for serialisation.
         """
-        fields = ("id", "transaction_date", "transaction_type", "amount", "investor_id", "investor", "ornsactionr_id")
+        fields = ("id", "transaction_date", "transaction_type", "amount", "investor_id", "investor", "order_id")
 
     @post_dump
     def serialize_enum(self, data, **kwargs):
