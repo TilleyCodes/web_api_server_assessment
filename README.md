@@ -489,5 +489,3 @@ This project is licensed under the MIT License. Please see [LICENSE](https://git
     - MongoDB’s schema-less nature allows for dynamic changes, making it better suited for applications with rapidly evolving data models.  
 
 ---  
-
-
