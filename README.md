@@ -98,7 +98,7 @@ The purpose of this application is to allow the investors on the platform to man
 
 - Stock Information:  
     - Access stock details, including name, ticker, and market price.  
-    - Retrieve stock details in portfolios or watchlists.       
+    - Retrieve stock details in portfolios or watchlists.          
 
 ---
 
