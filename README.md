@@ -94,7 +94,7 @@ The purpose of this application is to allow the investors on the platform to man
 
 - Watchlists:  
     - Create watchlists to monitor stocks of interest.  
-    - Track stocks investors are following.  
+    - Track stocks investors are following.    
 
 - Stock Information:  
     - Access stock details, including name, ticker, and market price.  
